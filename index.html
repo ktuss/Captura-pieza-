@@ -27,7 +27,6 @@
 <div id="homeScreen" class="screen active">
   <h1 class="logo">PIEZA</h1>
   <h1 class="logo pieza">CABEZA</h1>
-
   <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
 </div>
 
@@ -39,13 +38,23 @@
 
 <!-- JUEGO -->
 <div id="gameScreen" class="screen">
+
   <div id="board"></div>
+
   <p id="timer">1:40</p>
+
+  <!-- BOTONES -->
+  <div class="controls">
+    <button onclick="restartCamera()">📸 NUEVA FOTO</button>
+    <button onclick="resetGame()">🔁 REINICIAR</button>
+  </div>
+
   <div id="overlayMessage"></div>
+
 </div>
 
-<!-- RANKING -->
-<div id="ranking"></div>
+<!-- HISTORIAL -->
+<div id="historyTable"></div>
 
 <script src="script.js"></script>
 </body>
