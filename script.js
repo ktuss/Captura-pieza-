@@ -1,30 +1,35 @@
- let video = document.getElementById("video");
+let video = document.getElementById("video");
 let stream = null;
-
 let board = document.getElementById("board");
 
 let tiles = [];
 let emptyIndex = 8;
 let imageSrc = "";
 
-let timer = 0;
+let timeLeft = 100; // 1:40 = 100 segundos
 let interval = null;
 
-/* CAMBIO DE PANTALLA */
+/* CAMBIO PANTALLA */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-/* INICIAR CAMARA */
+/* CAMARA */
 async function startCamera(){
   show("cameraScreen");
-
   stream = await navigator.mediaDevices.getUserMedia({video:true});
   video.srcObject = stream;
 }
 
-/* TOMAR FOTO */
+function stopCamera(){
+  if(stream){
+    stream.getTracks().forEach(t=>t.stop());
+    stream = null;
+  }
+}
+
+/* FOTO */
 function takePhoto(){
   let canvas = document.createElement("canvas");
   canvas.width = video.videoWidth;
@@ -39,15 +44,7 @@ function takePhoto(){
   initGame();
 }
 
-/* APAGAR CAMARA */
-function stopCamera(){
-  if(stream){
-    stream.getTracks().forEach(track=>track.stop());
-    stream = null;
-  }
-}
-
-/* INICIAR JUEGO */
+/* JUEGO */
 function initGame(){
   tiles = [0,1,2,3,4,5,6,7,8];
   emptyIndex = 8;
@@ -67,7 +64,7 @@ function shuffle(){
   }
 }
 
-/* DIBUJAR */
+/* RENDER */
 function render(){
   board.innerHTML="";
 
@@ -90,43 +87,52 @@ function render(){
   });
 }
 
-/* MOVIMIENTO CORRECTO 🔥 */
+/* MOVIMIENTO CORRECTO */
 function move(index){
   let row = Math.floor(index / 3);
   let col = index % 3;
 
-  let emptyRow = Math.floor(emptyIndex / 3);
-  let emptyCol = emptyIndex % 3;
+  let er = Math.floor(emptyIndex / 3);
+  let ec = emptyIndex % 3;
 
-  let isValid =
-    (row === emptyRow && Math.abs(col - emptyCol) === 1) ||
-    (col === emptyCol && Math.abs(row - emptyRow) === 1);
+  let valid =
+    (row === er && Math.abs(col - ec) === 1) ||
+    (col === ec && Math.abs(row - er) === 1);
 
-  if(isValid){
+  if(valid){
     [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
     emptyIndex = index;
     render();
   }
 }
 
-/* TIMER */
+/* TIMER REGRESIVO 🔥 */
 function startTimer(){
   clearInterval(interval);
-  timer = 0;
+  timeLeft = 100;
 
   interval = setInterval(()=>{
-    timer++;
+    timeLeft--;
 
-    let min = Math.floor(timer/60);
-    let sec = timer%60;
+    let min = Math.floor(timeLeft/60);
+    let sec = timeLeft%60;
 
     document.getElementById("timer").innerText =
-      `Tiempo: ${min}:${sec.toString().padStart(2,'0')}`;
+      `${min}:${sec.toString().padStart(2,'0')}`;
+
+    if(timeLeft <= 0){
+      clearInterval(interval);
+      alert("⏰ Tiempo terminado");
+    }
+
   },1000);
 }
 
-/* REINICIAR */
+/* BOTONES */
 function restart(){
-  show("cameraScreen");
   startCamera();
-    }
+}
+
+function resetGame(){
+  initGame();
+     }
