@@ -2,59 +2,48 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Puzzle Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <title>Pieza-Cabeza</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- 🎬 ANIMACIÓN INICIAL -->
-<div id="introAnimation">
-  <div class="puzzle-intro">
-    <div class="piece p1"></div>
-    <div class="piece p2"></div>
-    <div class="piece p3"></div>
-    <div class="piece p4"></div>
-    <div class="piece p5"></div>
-  </div>
+<div id="homeScreen" class="screen active">
+  <h1 class="logo">
+    PIEZA-
+    <span class="pieza">CABEZA</span>
+  </h1>
+  <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
 </div>
 
-<!-- 🏠 PANTALLA INICIO -->
-<div id="homeScreen" class="screen">
-
-  <h1 class="logo">PUZZLE GAME</h1>
-
-  <div class="pieza">🧩 PIEZA</div>
-  <div class="pieza">🧠 CABEZA</div>
-
-  <button class="btn-enter" onclick="startGame()">ENTRAR</button>
-
+<div id="cameraScreen" class="screen">
+  <video id="video" autoplay></video>
+  <button class="btn-enter big" onclick="takePhoto()">TOMAR FOTO</button>
 </div>
 
-<!-- 🎮 JUEGO -->
 <div id="gameScreen" class="screen">
 
-  <h2>Arma el puzzle</h2>
+  <div id="timer">1:40</div>
 
-  <div id="board"></div>
+  <div class="board-wrapper">
+    <div id="board"></div>
+    <div id="overlayMessage"></div>
+  </div>
 
-  <p id="timer">Tiempo: 0s</p>
+  <!-- RANKING -->
+  <div id="ranking"></div>
 
-</div>
-
-<!-- 🏆 RESULTADO / RANKING -->
-<div id="resultScreen" class="screen">
-
-  <h2>🏆 RESULTADOS</h2>
-
-  <div id="timesTable"></div>
-
-  <button onclick="goHome()">Volver</button>
+  <div class="controls">
+    <button onclick="restart()">NUEVA</button>
+    <button onclick="resetGame()">REINICIAR</button>
+  </div>
 
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
