@@ -11,6 +11,9 @@
 
 <body>
 
+<!-- FONDO ESTRELLAS -->
+<canvas id="spaceCanvas"></canvas>
+
 <!-- INTRO -->
 <div id="introAnimation">
   <div class="puzzle-intro">
@@ -24,7 +27,7 @@
 
 <!-- INICIO -->
 <div id="homeScreen" class="screen active">
-  <h1 class="logo">PIEZA</h1>
+  <h1 class="logo pulsing">PIEZA</h1>
   <h1 class="logo pieza">CABEZA</h1>
   <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
 </div>
@@ -45,6 +48,7 @@
   <div class="controls">
     <button onclick="restartCamera()">NUEVA FOTO</button>
     <button onclick="resetGame()">REINICIAR</button>
+    <button onclick="clearHistory()">BORRAR DATOS</button>
   </div>
 
   <div id="overlayMessage"></div>
@@ -54,8 +58,45 @@
 <!-- HISTORIAL -->
 <div id="historyTable"></div>
 
-
-
 <script src="script.js"></script>
+
+<!-- SCRIPT FONDO ESTRELLAS -->
+<script>
+const canvas = document.getElementById('spaceCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+let stars = [];
+for(let i=0;i<250;i++){
+  stars.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*1.5 + 0.5,
+    d: Math.random()*0.5
+  });
+}
+
+function animateStars(){
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#fff';
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fill();
+    s.y += s.d;
+    if(s.y > canvas.height) s.y = 0;
+  });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+</script>
+
 </body>
 </html>
