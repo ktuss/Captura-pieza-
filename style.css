@@ -2,246 +2,10 @@ body{
   margin:0;
   background:white;
   color:#00cfff;
-}
   font-family:'Bangers', cursive;
   text-align:center;
 }
 
-.screen{ display:none; }
-.active{ display:block; }
-
-/* LOGO */
-.logo{
-  margin-top:60px;
-  font-size:42px;
-  color:#00ffcc;
-  text-shadow:0 0 15px #00ffcc;
-}
-
-/* PIEZA */
-.pieza{
-  display:inline-block;
-  font-size:32px;
-  padding:15px 20px;
-  background:#00ffcc;
-  color:black;
-  border-radius:12px;
-  box-shadow:0 0 20px #00ffcc, inset 0 0 10px rgba(255,255,255,0.5);
-}
-
-/* BOTON ENTRAR */
-.btn-enter{
-  margin-top:40px;
-  padding:15px 30px;
-  font-size:22px;
-  border:none;
-  border-radius:15px;
-  background:#00ffcc;
-  color:black;
-  animation:bounce 1.5s infinite;
-}
-
-.big{ font-size:26px; }
-
-@keyframes bounce{
-  50%{ transform:translateY(-10px) scale(1.1); }
-}
-
-/* VIDEO */
-video{
-  width:90%;
-  border-radius:15px;
-  margin-top:20px;
-  box-shadow:0 0 20px #00ffcc;
-}
-
-/* TIMER */
-#timer{
-  font-size:26px;
-  margin:10px;
-  color:#00ffcc;
-  animation:pulse 1.5s infinite;
-}
-
-.alert{
-  color:red !important;
-  animation:pulseRed 0.7s infinite;
-}
-
-@keyframes pulse{
-  50%{ transform:scale(1.1); }
-}
-
-@keyframes pulseRed{
-  50%{ transform:scale(1.2); }
-}
-
-/* TABLERO */
-.board-wrapper{
-  width:90vw;
-  max-width:320px;
-  margin:auto;
-  position:relative;
-}
-
-#board{
-  width:100%;
-  aspect-ratio:1;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:4px;
-  border-radius:15px;
-  box-shadow:0 0 20px #00ffcc;
-}
-
-/* PIEZAS */
-.tile{
-  background-size:300% 300%;
-  border-radius:8px;
-  box-shadow:0 0 10px #00ffcc;
-  transition:0.15s;
-}
-
-/* MENSAJE */
-#overlayMessage{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:32px;
-}
-
-/* GANAR DESTELLO */
-.win{
-  color:yellow;
-  text-shadow:0 0 10px yellow, 0 0 25px gold, 0 0 40px orange;
-  animation:flash 0.6s infinite;
-}
-
-@keyframes flash{
-  50%{ transform:scale(1.2); opacity:0.7; }
-}
-
-/* PERDER */
-.lose{
-  color:red;
-  text-shadow:0 0 20px red;
-}
-
-/* BOTONES */
-.controls{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  display:flex;
-  gap:10px;
-  padding:10px;
-}
-
-.controls button{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:black;
-  color:#00ffcc;
-  font-size:18px;
-  box-shadow:0 0 10px #00ffcc;
-  animation:pulse 1.5s infinite;
-}
-
-/* RANKING */
-#ranking{
-  margin-top:10px;
-  color:#00ffcc;
-}
-
-#ranking h3{
-  margin:5px;
-}
-
-#ranking ul{
-  list-style:none;
-  padding:0;
-}
-
-#ranking li{
-  background:#111;
-  margin:4px;
-  padding:6px;
-  border-radius:8px;
-  box-shadow:0 0 10px #00ffcc;
-}
-/* ⚡ RAYO 3D */
-.ranking-title{
-  font-size:22px;
-  animation:spin3D 3s infinite linear;
-  display:inline-block;
-  text-shadow:0 0 10px #00ffcc, 0 0 20px #00ffcc;
-}
-
-@keyframes spin3D{
-  0%{ transform:rotateY(0deg); }
-  50%{ transform:rotateY(180deg); }
-  100%{ transform:rotateY(360deg); }
-}
-
-/* ⏱ CUADROS DE TIEMPO */
-.time-box{
-  background:black;
-  margin:6px;
-  padding:10px;
-  border-radius:12px;
-  box-shadow:0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
-  font-size:20px;
-  letter-spacing:2px;
-}
-/* ⚡ RAYO 3D REAL */
-.ranking-title{
-  font-size:22px;
-  display:inline-block;
-  animation:spin3D 2.5s infinite linear;
-  transform-style:preserve-3d;
-  text-shadow:0 0 10px #00ffcc, 0 0 25px #00ffcc;
-}
-
-@keyframes spin3D{
-  0%{ transform:rotateY(0deg) rotateX(10deg); }
-  50%{ transform:rotateY(180deg) rotateX(-10deg); }
-  100%{ transform:rotateY(360deg) rotateX(10deg); }
-}
-
-/* ⏱ CUADROS TIEMPO */
-.time-box{
-  background:black;
-  margin:6px;
-  padding:10px;
-  border-radius:12px;
-  box-shadow:0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
-  font-size:20px;
-  letter-spacing:2px;
-}
-
-/* 🧩 EFECTO PIEZA */
-.tile{
-  transition:0.2s;
-}
-
-.tile:active{
-  transform:scale(0.9);
-}
-
-/* 🔥 GANAR PRO */
-.win{
-  color:yellow;
-  text-shadow:0 0 10px yellow, 0 0 25px gold, 0 0 50px orange;
-  animation:flash 0.4s infinite, pop 0.6s ease;
-}
-
-@keyframes pop{
-  0%{ transform:scale(0); }
-  100%{ transform:scale(1); }
-}
 /* INTRO */
 #introAnimation{
   position:fixed;
@@ -254,6 +18,7 @@ video{
   z-index:999;
 }
 
+/* PIEZAS ANIMACIÓN */
 .puzzle-intro{
   position:relative;
   width:150px;
@@ -270,19 +35,20 @@ video{
   box-shadow:0 0 15px #00cfff;
 }
 
-/* POSICIONES */
+/* posiciones */
 .p1{ top:0; left:0; animation:move1 1s forwards; }
 .p2{ top:0; right:0; animation:move2 1s forwards; }
 .p3{ bottom:0; left:0; animation:move3 1s forwards; }
 .p4{ bottom:0; right:0; animation:move4 1s forwards; }
 
+/* pieza final */
 .p5{
   top:-80px;
   left:45px;
   animation:drop 1s 1s forwards;
 }
 
-/* ANIMACIONES */
+/* animaciones */
 @keyframes move1{ to{ transform:translate(20px,20px);} }
 @keyframes move2{ to{ transform:translate(-20px,20px);} }
 @keyframes move3{ to{ transform:translate(20px,-20px);} }
@@ -295,35 +61,100 @@ video{
   }
 }
 
-/* ESTILO NEÓN */
+/* PANTALLAS */
+.screen{ display:none; }
+.active{ display:block; }
+
+/* LOGO */
 .logo{
+  margin-top:60px;
+  font-size:42px;
   color:#00cfff;
   text-shadow:0 0 15px #00cfff;
 }
 
 .pieza{
+  display:inline-block;
+  font-size:32px;
+  padding:15px;
   border:3px solid #00cfff;
+  border-radius:12px;
   box-shadow:0 0 15px #00cfff;
 }
 
+/* BOTONES */
 .btn-enter{
+  margin-top:40px;
+  padding:15px 30px;
+  font-size:22px;
+  border:2px solid #00cfff;
+  border-radius:15px;
   background:white;
   color:#00cfff;
-  border:2px solid #00cfff;
   box-shadow:0 0 15px #00cfff;
+  animation:pulse 1.5s infinite;
 }
 
-#board{
+/* VIDEO */
+video{
+  width:90%;
+  border-radius:15px;
+  margin-top:20px;
   box-shadow:0 0 20px #00cfff;
 }
 
+/* TABLERO */
+#board{
+  width:90vw;
+  max-width:320px;
+  margin:auto;
+  display:grid;
+  gap:4px;
+  border-radius:15px;
+  box-shadow:0 0 20px #00cfff;
+}
+
+/* PIEZAS */
 .tile{
+  border-radius:8px;
   box-shadow:0 0 10px #00cfff;
+  transition:0.2s;
+}
+
+.tile:active{
+  transform:scale(0.9);
+}
+
+/* MENSAJES */
+.win{
+  color:#00cfff;
+  text-shadow:0 0 15px #00cfff, 0 0 30px #00cfff;
+}
+
+.lose{
+  color:red;
 }
 
 /* RANKING */
 .time-box{
   background:white;
+  margin:6px;
+  padding:10px;
+  border-radius:12px;
   border:2px solid #00cfff;
   box-shadow:0 0 10px #00cfff;
+}
+
+/* RAYO */
+.ranking-title{
+  animation:spin3D 3s infinite linear;
+}
+
+@keyframes spin3D{
+  0%{ transform:rotateY(0deg);}
+  100%{ transform:rotateY(360deg);}
+}
+
+@keyframes pulse{
+  50%{ transform:scale(1.1);}
   }
