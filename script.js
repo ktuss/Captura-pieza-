@@ -7,13 +7,8 @@ let tiles = [];
 let emptyIndex = 8;
 let imageSrc = "";
 
-timeLeft = 100 - (difficulty * 5);
+let timeLeft = 100;
 let interval = null;
-
-/* 🏆 RANKING */
-let scores = JSON.parse(localStorage.getItem("scores")) || [];
-
-/* 🔥 DIFICULTAD */
 let difficulty = 1;
 
 /* PANTALLAS */
@@ -50,7 +45,7 @@ function takePhoto(){
   initGame();
 }
 
-/* INICIO */
+/* INICIO JUEGO */
 function initGame(){
   tiles=[0,1,2,3,4,5,6,7,8];
   emptyIndex=8;
@@ -62,13 +57,11 @@ function initGame(){
 
   show("gameScreen");
   startTimer();
-  showRanking();
 }
 
-/* 🔥 MEZCLA CON DIFICULTAD */
+/* MEZCLAR */
 function shuffle(){
   let moves = 80 + (difficulty * 40);
-
   for(let i=0;i<moves;i++){
     let r=Math.floor(Math.random()*9);
     move(r,false);
@@ -88,18 +81,26 @@ function render(){
       let x=num%3;
       let y=Math.floor(num/3);
 
-      div.style.backgroundImage=`url(${imageSrc})`;
-      div.style.backgroundPosition=`${x*50}% ${y*50}%`;
+      if(imageSrc){
+        div.style.backgroundImage=`url(${imageSrc})`;
+        div.style.backgroundPosition=`${x*50}% ${y*50}%`;
+      }else{
+        div.style.background="#111";
+        div.innerText = num+1;
+      }
 
-      div.onclick=()=>move(i);
-      div.ontouchstart=()=>move(i);
+      div.addEventListener("click", ()=>move(i));
+      div.addEventListener("touchstart", (e)=>{
+        e.preventDefault();
+        move(i);
+      });
     }
 
     board.appendChild(div);
   });
 }
 
-/* 🔥 MOVER CON VIBRACIÓN */
+/* MOVER */
 function move(i,check=true){
   let r=Math.floor(i/3), c=i%3;
   let er=Math.floor(emptyIndex/3), ec=emptyIndex%3;
@@ -112,7 +113,6 @@ function move(i,check=true){
     [tiles[i],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[i]];
     emptyIndex=i;
 
-    // ⚡ vibración tipo juego
     if(navigator.vibrate){
       navigator.vibrate([20,10,20]);
     }
@@ -132,46 +132,22 @@ function checkWin(){
     overlay.innerText="GANASTE";
     overlay.className="win";
 
-    scores.push(timeLeft);
-    scores.sort((a,b)=>b-a);
-    scores=scores.slice(0,5);
-
-    localStorage.setItem("scores", JSON.stringify(scores));
-
-    difficulty++; // 🔥 sube dificultad
-
-    showRanking();
+    difficulty++;
   }
-}
-
-/* ⚡ RANKING CON RAYO */
-function showRanking(){
-  let div=document.getElementById("ranking");
-
-  div.innerHTML = `
-    <h3 class="ranking-title">⚡ MEJORES</h3>
-    <ul>
-      ${scores.map(s=>{
-        let m=Math.floor(s/60);
-        let sec=s%60;
-        return `<li class="time-box">${m}:${sec.toString().padStart(2,'0')}</li>`;
-      }).join("")}
-    </ul>
-  `;
 }
 
 /* TIMER */
 function startTimer(){
   clearInterval(interval);
-  timeLeft=100;
+  timeLeft = 100 - (difficulty * 5);
 
   interval=setInterval(()=>{
     timeLeft--;
 
-    let t=document.getElementById("timer");
     let m=Math.floor(timeLeft/60);
     let s=timeLeft%60;
 
+    let t=document.getElementById("timer");
     t.innerText=`${m}:${s.toString().padStart(2,'0')}`;
 
     if(timeLeft<=12){
@@ -187,14 +163,10 @@ function startTimer(){
   },1000);
 }
 
-/* BOTONES */
-function restart(){ startCamera(); }
-function resetGame(){ initGame(); }
+/* INTRO */
 window.addEventListener("load", ()=>{
-
   setTimeout(()=>{
     let intro = document.getElementById("introAnimation");
     if(intro) intro.style.display="none";
   },2000);
-
 });
