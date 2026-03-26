@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b0f1a;
+  color: white;
+  text-align: center;
+}
+
+.screen { display: none; }
+.active { display: block; }
+
+.title {
+  font-size: 28px;
+  background: linear-gradient(90deg, #00ff88, #00ccff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.camera-icon {
+  font-size: 80px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.2); }
+}
+
+video {
+  width: 280px;
+  border-radius: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #00ff88;
+  color: black;
+  font-weight: bold;
+}
+
+#puzzle {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.tile {
+  width: 100px;
+  height: 100px;
+  background-size: 300px 300px;
+  transition: all 0.2s;
+}
+
+.empty {
+  background: #111;
+}
