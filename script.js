@@ -13,6 +13,9 @@ let interval = null;
 /* 🏆 RANKING */
 let scores = JSON.parse(localStorage.getItem("scores")) || [];
 
+/* 🔥 DIFICULTAD */
+let difficulty = 1;
+
 /* PANTALLAS */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
@@ -62,9 +65,11 @@ function initGame(){
   showRanking();
 }
 
-/* MEZCLA */
+/* 🔥 MEZCLA CON DIFICULTAD */
 function shuffle(){
-  for(let i=0;i<100;i++){
+  let moves = 80 + (difficulty * 40);
+
+  for(let i=0;i<moves;i++){
     let r=Math.floor(Math.random()*9);
     move(r,false);
   }
@@ -94,7 +99,7 @@ function render(){
   });
 }
 
-/* MOVER */
+/* 🔥 MOVER CON VIBRACIÓN */
 function move(i,check=true){
   let r=Math.floor(i/3), c=i%3;
   let er=Math.floor(emptyIndex/3), ec=emptyIndex%3;
@@ -107,7 +112,10 @@ function move(i,check=true){
     [tiles[i],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[i]];
     emptyIndex=i;
 
-    if(navigator.vibrate) navigator.vibrate(40);
+    // ⚡ vibración tipo juego
+    if(navigator.vibrate){
+      navigator.vibrate([20,10,20]);
+    }
 
     render();
     if(check) checkWin();
@@ -130,21 +138,26 @@ function checkWin(){
 
     localStorage.setItem("scores", JSON.stringify(scores));
 
+    difficulty++; // 🔥 sube dificultad
+
     showRanking();
   }
 }
 
-/* RANKING */
+/* ⚡ RANKING CON RAYO */
 function showRanking(){
   let div=document.getElementById("ranking");
 
-  div.innerHTML="<h3>🏆 MEJORES</h3><ul>" +
-    scores.map(s=>{
-      let m=Math.floor(s/60);
-      let sec=s%60;
-      return `<li>${m}:${sec.toString().padStart(2,'0')}</li>`;
-    }).join("") +
-    "</ul>";
+  div.innerHTML = `
+    <h3 class="ranking-title">⚡ MEJORES</h3>
+    <ul>
+      ${scores.map(s=>{
+        let m=Math.floor(s/60);
+        let sec=s%60;
+        return `<li class="time-box">${m}:${sec.toString().padStart(2,'0')}</li>`;
+      }).join("")}
+    </ul>
+  `;
 }
 
 /* TIMER */
