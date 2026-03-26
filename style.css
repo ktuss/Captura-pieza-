@@ -3,55 +3,44 @@ body{
   font-family:Arial;
   background:#000;
   color:white;
-  text-align:center;
 }
 
-.screen{ display:none; }
-.active{ display:block; }
+/* PANTALLAS */
+.screen{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
 
-/* TITULO LED */
+.active{
+  display:flex;
+}
+
+/* TITULO */
 .title{
-  font-size:32px;
-  margin-top:20px;
+  font-size:28px;
   color:#00ffcc;
-  text-shadow:
-    0 0 5px #00ffcc,
-    0 0 10px #00ffcc,
-    0 0 20px #00ccff,
-    0 0 40px #00ccff;
+  text-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
 }
 
 /* LENTE */
 .lens{
-  width:180px;
-  height:180px;
-  margin:30px auto;
+  width:160px;
+  height:160px;
   border-radius:50%;
-  background:radial-gradient(circle,#111 20%,#000 60%);
-  box-shadow:
-    0 0 20px #00ffcc,
-    inset 0 0 30px #00ccff,
-    inset 0 0 60px black;
-  position:relative;
+  margin:20px;
+  background:radial-gradient(circle,#111,#000);
+  box-shadow:0 0 20px #00ffcc,inset 0 0 30px #00ccff;
 }
 
-.lens::after{
-  content:"";
-  width:40px;
-  height:40px;
-  background:rgba(255,255,255,0.2);
-  border-radius:50%;
-  position:absolute;
-  top:20px;
-  left:20px;
-}
-
-/* BOTON */
+/* BOTONES */
 button{
   padding:12px 20px;
-  margin:15px;
+  margin:10px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   font-size:16px;
 }
 
@@ -66,15 +55,31 @@ video{
   max-width:350px;
   border-radius:20px;
   border:3px solid #00ffcc;
-  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
+  box-shadow:0 0 15px #00ffcc;
 }
 
-/* BOARD RESPONSIVE 🔥 */
+/* LAYOUT JUEGO */
+.game-layout{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  height:100vh;
+  padding:10px;
+}
+
+/* TIMER ARRIBA */
+.top-bar{
+  width:100%;
+  text-align:center;
+  font-size:22px;
+}
+
+/* PUZZLE */
 #board{
-  width:90vw;
-  max-width:400px;
+  width:92vw;
+  max-width:380px;
   aspect-ratio:1/1;
-  margin:20px auto;
 
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -82,26 +87,28 @@ video{
   gap:6px;
 }
 
-/* PIEZAS MEJORADAS */
+/* PIEZAS */
 .tile{
   width:100%;
   height:100%;
-
   background-size:300% 300%;
-  border-radius:10px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:12px;
 
   box-shadow:
-    inset 0 0 5px rgba(255,255,255,0.3),
-    0 6px 12px rgba(0,0,0,0.7);
+    inset 0 0 6px rgba(255,255,255,0.3),
+    0 6px 10px rgba(0,0,0,0.7);
 
   transition:0.2s;
-  cursor:pointer;
 }
 
 .tile:active{
   transform:scale(0.92);
+}
+
+/* BOTONES ABAJO */
+.bottom-bar{
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  margin-bottom:10px;
 }
