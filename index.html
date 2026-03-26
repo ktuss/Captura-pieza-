@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Foto Puzzle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TIPOGRAFIA BOMBING -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,22 +15,19 @@
 <!-- INICIO -->
 <div id="home" class="screen active">
   <h1 class="title">FOTO PUZZLE</h1>
-  <div class="lens"></div>
-  <button class="btn-glow" onclick="startCamera()">Entrar</button>
+  <button class="btn-glow big" onclick="startCamera()">ENTRAR</button>
 </div>
 
 <!-- CAMARA -->
 <div id="cameraScreen" class="screen">
   <video id="video" autoplay playsinline></video>
-  <button onclick="takePhoto()">Tomar Foto</button>
+  <button class="btn-glow big" onclick="takePhoto()">📸 TOMAR FOTO</button>
 </div>
 
 <!-- JUEGO -->
 <div id="gameScreen" class="screen game-layout">
 
-  <div class="top-bar">
-    <h2 id="timer">01:40</h2>
-  </div>
+  <h2 id="timer">01:40</h2>
 
   <div class="board-wrapper">
     <div id="board"></div>
@@ -34,8 +35,8 @@
   </div>
 
   <div class="control-bar">
-    <button onclick="restart()">📸 Nueva</button>
-    <button onclick="resetGame()">🔄 Reiniciar</button>
+    <button onclick="restart()">📸 NUEVA</button>
+    <button onclick="resetGame()">🔄 REINICIAR</button>
   </div>
 
 </div>
