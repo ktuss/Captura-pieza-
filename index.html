@@ -2,43 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Foto Puzzle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- TIPOGRAFIA BOMBING -->
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
+  <title>Foto Puzzle</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <!-- INICIO -->
-<div id="home" class="screen active">
-  <h1 class="title">FOTO PUZZLE</h1>
-  <button class="btn-glow big" onclick="startCamera()">ENTRAR</button>
+<div id="homeScreen" class="screen active">
+  <h1 class="title">📸 FOTO JUEGO</h1>
+  <button class="btn-main" onclick="startCamera()">ENTRAR</button>
 </div>
 
 <!-- CAMARA -->
 <div id="cameraScreen" class="screen">
-  <video id="video" autoplay playsinline></video>
-  <button class="btn-glow big" onclick="takePhoto()">📸 TOMAR FOTO</button>
+  <video id="video" autoplay></video>
+  <button class="btn-main" onclick="takePhoto()">TOMAR FOTO</button>
 </div>
 
 <!-- JUEGO -->
-<div id="gameScreen" class="screen game-layout">
+<div id="gameScreen" class="screen">
+  <div id="timer">1:40</div>
 
-  <h2 id="timer">01:40</h2>
+  <div id="board"></div>
 
-  <div class="board-wrapper">
-    <div id="board"></div>
-    <div id="overlayMessage"></div>
+  <div id="overlayMessage"></div>
+
+  <div class="controls">
+    <button onclick="restart()" class="btn-led">📸 Nueva Foto</button>
+    <button onclick="resetGame()" class="btn-led">🔄 Reiniciar</button>
   </div>
-
-  <div class="control-bar">
-    <button onclick="restart()">📸 NUEVA</button>
-    <button onclick="resetGame()">🔄 REINICIAR</button>
-  </div>
-
 </div>
 
 <script src="script.js"></script>
