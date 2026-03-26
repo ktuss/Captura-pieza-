@@ -11,7 +11,6 @@ let timeLeft = 100;
 let interval = null;
 let difficulty = 1;
 
-/* HISTORIAL */
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
 /* PANTALLAS */
@@ -157,7 +156,7 @@ function showHistory(){
   let div = document.getElementById("historyTable");
 
   div.innerHTML = `
-    <h3>⚡ HISTORIAL</h3>
+    <h3>HISTORIAL</h3>
     <table>
       <tr>
         <th>Fecha</th>
@@ -171,6 +170,13 @@ function showHistory(){
       `).join("")}
     </table>
   `;
+}
+
+/* BORRAR */
+function clearHistory(){
+  history = [];
+  localStorage.removeItem("history");
+  showHistory();
 }
 
 /* TIMER */
@@ -201,13 +207,8 @@ function startTimer(){
 }
 
 /* BOTONES */
-function restartCamera(){
-  startCamera();
-}
-
-function resetGame(){
-  initGame();
-}
+function restartCamera(){ startCamera(); }
+function resetGame(){ initGame(); }
 
 /* INTRO */
 window.addEventListener("load", ()=>{
