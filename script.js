@@ -6,7 +6,7 @@ let tiles = [];
 let emptyIndex = 8;
 let imageSrc = "";
 
-let timeLeft = 100; // 1:40 = 100 segundos
+let timeLeft = 100;
 let interval = null;
 
 /* CAMBIO PANTALLA */
@@ -87,7 +87,7 @@ function render(){
   });
 }
 
-/* MOVIMIENTO CORRECTO */
+/* MOVIMIENTO */
 function move(index){
   let row = Math.floor(index / 3);
   let col = index % 3;
@@ -103,10 +103,29 @@ function move(index){
     [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
     emptyIndex = index;
     render();
+
+    checkWin(); // 🔥 revisar si ganó
   }
 }
 
-/* TIMER REGRESIVO 🔥 */
+/* DETECTAR VICTORIA 🔥 */
+function checkWin(){
+  let correct = [0,1,2,3,4,5,6,7,8];
+
+  let isWin = tiles.every((v,i)=>v === correct[i]);
+
+  if(isWin){
+    clearInterval(interval);
+
+    let txt = document.getElementById("resultText");
+    txt.innerText = "🎉 GANASTE";
+    txt.className = "win";
+
+    show("resultScreen");
+  }
+}
+
+/* TIMER */
 function startTimer(){
   clearInterval(interval);
   timeLeft = 100;
@@ -122,7 +141,12 @@ function startTimer(){
 
     if(timeLeft <= 0){
       clearInterval(interval);
-      alert("⏰ Tiempo terminado");
+
+      let txt = document.getElementById("resultText");
+      txt.innerText = "❌ PERDISTE";
+      txt.className = "lose";
+
+      show("resultScreen");
     }
 
   },1000);
@@ -135,4 +159,4 @@ function restart(){
 
 function resetGame(){
   initGame();
-     }
+}
