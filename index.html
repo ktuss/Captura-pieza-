@@ -2,62 +2,223 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Pieza Cabeza</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pieza-Cabeza</title>
 
-<link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background:black;
+  color:#00ff99;
+  font-family:'Bangers', cursive;
+  text-align:center;
+}
+
+/* TITULO */
+.title{
+  font-size:50px;
+  margin-top:30px;
+  text-shadow:0 0 20px #00ff99;
+}
+
+/* BOTÓN ENTRAR */
+#startBtn{
+  margin-top:40px;
+  font-size:30px;
+  padding:15px 40px;
+  border-radius:20px;
+  border:2px solid #00ff99;
+  background:black;
+  color:#00ff99;
+  box-shadow:0 0 20px #00ff99;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+/* TABLERO */
+#board{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  width:90vw;
+  max-width:350px;
+  margin:20px auto;
+  box-shadow:0 0 20px #00ff99;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+/* PIEZAS */
+.tile{
+  width:100%;
+  aspect-ratio:1;
+  border:1px solid #00ff99;
+  border-radius:10px;
+  background-size:300% 300%;
+}
+
+/* BOTONES */
+.controls button{
+  font-family:'Bangers', cursive;
+  font-size:18px;
+  margin:8px;
+  padding:12px 25px;
+  background:black;
+  color:#00ff99;
+  border:2px solid #00ff99;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,255,153,0.4);
+}
+
+.controls button:active{
+  transform:scale(0.95);
+}
+
+/* TABLA */
+table{
+  width:90%;
+  margin:10px auto;
+  border-collapse:collapse;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+td,th{
+  border:1px solid #00ff99;
+  padding:5px;
+}
+
+/* MENSAJE FINAL */
+#message{
+  font-size:30px;
+  margin-top:10px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="introAnimation">
-  <div class="puzzle-intro">
-    <div class="piece p1"></div>
-    <div class="piece p2"></div>
-    <div class="piece p3"></div>
-    <div class="piece p4"></div>
-    <div class="piece p5"></div>
-  </div>
-</div>
-
 <!-- INICIO -->
-<div id="homeScreen" class="screen active">
-  <h1 class="logo">PIEZA</h1>
-  <h1 class="logo pieza">CABEZA</h1>
-  <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
-</div>
-
-<!-- CAMARA -->
-<div id="cameraScreen" class="screen">
-  <video id="video" autoplay playsinline></video>
-  <button class="btn-enter" onclick="takePhoto()">TOMAR FOTO</button>
+<div id="startScreen">
+  <div class="title">PIEZA - CABEZA</div>
+  <button id="startBtn" onclick="startGame()">ENTRAR</button>
 </div>
 
 <!-- JUEGO -->
-<div id="gameScreen" class="screen">
+<div id="gameScreen" style="display:none;">
+
+  <div id="timer">1:40</div>
 
   <div id="board"></div>
 
-  <p id="timer">1:40</p>
+  <div id="message"></div>
+
+  <div id="historyTable"></div>
 
   <div class="controls">
     <button onclick="restartCamera()">NUEVA FOTO</button>
     <button onclick="resetGame()">REINICIAR</button>
+    <button onclick="clearHistory()">BORRAR DATOS</button>
   </div>
 
-  <div id="overlayMessage"></div>
-
 </div>
 
-<!-- HISTORIAL -->
-<div id="historyTable"></div>
+<script>
+let board = document.getElementById("board");
+let timerEl = document.getElementById("timer");
+let message = document.getElementById("message");
 
-<div class="controls">
-  <button onclick="clearHistory()">BORRAR DATOS</button>
-</div>
+let time = 100;
+let interval;
+let tiles = [];
+let history = JSON.parse(localStorage.getItem("history")) || [];
 
-<script src="script.js"></script>
+function startGame(){
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("gameScreen").style.display="block";
+  init();
+}
+
+function init(){
+  board.innerHTML="";
+  tiles=[];
+
+  for(let i=0;i<9;i++){
+    let div=document.createElement("div");
+    div.className="tile";
+    div.style.backgroundImage="url('https://picsum.photos/300')";
+    div.style.backgroundPosition=`${(i%3)*50}% ${(Math.floor(i/3))*50}%`;
+    div.onclick=()=>move(i);
+    board.appendChild(div);
+    tiles.push(div);
+  }
+
+  startTimer();
+  showHistory();
+}
+
+function move(i){
+  navigator.vibrate(50);
+}
+
+function startTimer(){
+  time=100;
+  interval=setInterval(()=>{
+    time--;
+    timerEl.innerText=`${Math.floor(time/60)}:${("0"+time%60).slice(-2)}`;
+
+    if(time<=0){
+      clearInterval(interval);
+      message.innerText="PERDISTE";
+      message.style.color="red";
+    }
+
+  },1000);
+}
+
+function win(){
+  clearInterval(interval);
+  message.innerText="GANASTE";
+  message.style.color="yellow";
+
+  history.push({
+    fecha:new Date().toLocaleDateString(),
+    tiempo:100-time
+  });
+
+  localStorage.setItem("history",JSON.stringify(history));
+  showHistory();
+}
+
+function showHistory(){
+  let html="<table><tr><th>Fecha</th><th>Tiempo</th></tr>";
+  history.forEach(h=>{
+    html+=`<tr><td>${h.fecha}</td><td>${h.tiempo}s</td></tr>`;
+  });
+  html+="</table>";
+  document.getElementById("historyTable").innerHTML=html;
+}
+
+function clearHistory(){
+  history=[];
+  localStorage.removeItem("history");
+  showHistory();
+}
+
+function resetGame(){
+  init();
+}
+
+function restartCamera(){
+  location.reload();
+}
+</script>
+
 </body>
 </html>
