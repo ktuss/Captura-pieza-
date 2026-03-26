@@ -1,38 +1,32 @@
-/* --------------------------- */
-/* ESTILOS GENERALES */
 body{
   margin:0;
   font-family:'Bangers', cursive;
   text-align:center;
-  overflow:hidden; /* Evita scroll con canvas */
+  overflow:hidden;
   background:black;
   color:#00ff99;
 }
 
-/* --------------------------- */
 /* PANTALLAS */
 .screen{ display:none; }
 .screen.active{ display:block; }
 
-/* --------------------------- */
 /* LOGO */
 .logo{
   font-size:70px;
   text-shadow:0 0 15px #00ff99, 0 0 30px #00ff99;
 }
 
-/* ANIMACIÓN PIEZA */
+/* PIEZA ANIMADA */
 .pulsing{
   display:inline-block;
   animation:pulsePiece 1s infinite;
 }
-
 @keyframes pulsePiece{
-  0%, 100%{ transform: scale(1); }
+  0%,100%{ transform: scale(1); }
   50%{ transform: scale(1.3); }
 }
 
-/* --------------------------- */
 /* CABEZA */
 .pieza{
   font-size:60px;
@@ -41,8 +35,7 @@ body{
   box-shadow:0 0 20px #00ff99;
 }
 
-/* --------------------------- */
-/* BOTÓN PRINCIPAL */
+/* BOTON PRINCIPAL */
 .btn-enter{
   font-size:30px;
   padding:15px 40px;
@@ -54,85 +47,25 @@ body{
   animation:pulse 1.5s infinite;
   margin-top:20px;
 }
-
 @keyframes pulse{
   50%{ transform:scale(1.1); }
 }
 
-/* --------------------------- */
-/* CAMARA */
-video{
-  width:90%;
-  border:3px solid #00ff99;
-  box-shadow:0 0 20px #00ff99;
-  margin-top:20px;
-  border-radius:20px;
-}
+/* TABLERO Y Piezas */
+#board{ display:grid; grid-template-columns:repeat(3,1fr); width:90vw; max-width:350px; margin:20px auto; box-shadow:0 0 20px #00ff99; border-radius:20px; overflow:hidden;}
+.tile{ aspect-ratio:1; background-size:300% 300%; border:1px solid #00ff99; border-radius:10px; box-shadow:0 0 10px #00ff99; display:flex; align-items:center; justify-content:center; font-size:30px; }
 
-/* --------------------------- */
-/* TABLERO */
-#board{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  width:90vw;
-  max-width:350px;
-  margin:20px auto;
-  box-shadow:0 0 20px #00ff99;
-  border-radius:20px;
-  overflow:hidden;
-}
-
-/* --------------------------- */
-/* PIEZAS */
-.tile{
-  aspect-ratio:1;
-  background-size:300% 300%;
-  border:1px solid #00ff99;
-  border-radius:10px;
-  box-shadow:0 0 10px #00ff99;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-}
-
-/* --------------------------- */
 /* TIMER */
-#timer{
-  font-size:30px;
-}
+#timer{ font-size:30px; }
+.alert{ color:red; animation:pulse 0.5s infinite; }
 
-.alert{
-  color:red;
-  animation:pulse 0.5s infinite;
-}
-
-/* --------------------------- */
 /* MENSAJE */
-#overlayMessage{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:40px;
-}
+#overlayMessage{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:40px; }
+.win{ color:yellow; text-shadow:0 0 20px yellow; }
+.lose{ color:red; text-shadow:0 0 20px red; }
 
-.win{
-  color:yellow;
-  text-shadow:0 0 20px yellow;
-}
-
-.lose{
-  color:red;
-  text-shadow:0 0 20px red;
-}
-
-/* --------------------------- */
-/* BOTONES */
-.controls{
-  margin-top:15px;
-}
-
+/* CONTROLES */
+.controls{ margin-top:15px; }
 .controls button{
   font-family:'Bangers', cursive;
   font-size:18px;
@@ -145,74 +78,34 @@ video{
   box-shadow:0 5px 15px rgba(0,255,153,0.4);
   transition:0.2s;
 }
+.controls button:active{ transform:scale(0.95); box-shadow:0 2px 8px rgba(0,255,153,0.6); }
 
-.controls button:active{
-  transform:scale(0.95);
-  box-shadow:0 2px 8px rgba(0,255,153,0.6);
-}
-
-/* --------------------------- */
 /* TABLA */
-#historyTable{
-  margin-top:20px;
-}
+#historyTable{ margin-top:20px; }
+table{ width:90%; margin:auto; border-collapse:collapse; border-radius:15px; overflow:hidden; }
+th, td{ border:1px solid #00ff99; padding:8px; text-align:center; }
+th{ background:#001a12; }
+td{ box-shadow:0 0 5px #00ff99; }
 
-table{
-  width:90%;
-  margin:auto;
-  border-collapse:collapse;
-  border-radius:15px;
-  overflow:hidden;
-}
-
-th, td{
-  border:1px solid #00ff99;
-  padding:8px;
-  text-align:center;
-}
-
-th{
-  background:#001a12;
-}
-
-td{
-  box-shadow:0 0 5px #00ff99;
-}
-
-/* --------------------------- */
-/* FONDO MENU PRINCIPAL (retro/arcade) */
+/* FONDO MENÚ */
 #homeScreen{
   background: url("assets/fondo.jpg") no-repeat center center;
   background-size: cover;
-  height: 100vh;
+  height:100vh;
   position: relative;
-  z-index:1; 
+  z-index:1;
 }
-
-/* Oscurecer para que el texto se vea mejor */
 #homeScreen::before{
   content:"";
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0; left:0;
+  width:100%; height:100%;
   background: rgba(0,0,0,0.6);
   z-index:0;
 }
+#homeScreen *{ position:relative; z-index:1; }
 
-#homeScreen *{
-  position:relative;
-  z-index:1;
-}
-
-/* --------------------------- */
-/* CANVAS DE ESTRELLAS PARA JUEGO/CAMARA */
+/* CANVAS JUEGO */
 #spaceCanvasGame{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-  }
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+                        }
