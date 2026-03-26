@@ -24,7 +24,7 @@ body{
   box-shadow:0 0 20px #00ff99;
 }
 
-/* BOTÓN */
+/* BOTÓN PRINCIPAL */
 .btn-enter{
   font-size:30px;
   padding:15px 40px;
@@ -32,6 +32,7 @@ body{
   background:black;
   color:#00ff99;
   box-shadow:0 0 20px #00ff99;
+  border-radius:20px;
   animation:pulse 1.5s infinite;
   margin-top:20px;
 }
@@ -46,6 +47,7 @@ video{
   border:3px solid #00ff99;
   box-shadow:0 0 20px #00ff99;
   margin-top:20px;
+  border-radius:20px;
 }
 
 /* TABLERO */
@@ -56,6 +58,8 @@ video{
   max-width:350px;
   margin:20px auto;
   box-shadow:0 0 20px #00ff99;
+  border-radius:20px;
+  overflow:hidden;
 }
 
 /* PIEZAS */
@@ -63,6 +67,7 @@ video{
   aspect-ratio:1;
   background-size:300% 300%;
   border:1px solid #00ff99;
+  border-radius:10px;
   box-shadow:0 0 10px #00ff99;
   display:flex;
   align-items:center;
@@ -107,12 +112,19 @@ video{
 .controls button{
   font-family:'Bangers', cursive;
   font-size:18px;
-  margin:5px;
-  padding:10px 20px;
+  margin:8px;
+  padding:12px 25px;
   background:black;
   color:#00ff99;
   border:2px solid #00ff99;
-  box-shadow:0 0 10px #00ff99;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,255,153,0.4);
+  transition:0.2s;
+}
+
+.controls button:active{
+  transform:scale(0.95);
+  box-shadow:0 2px 8px rgba(0,255,153,0.6);
 }
 
 /* TABLA */
@@ -124,6 +136,8 @@ table{
   width:90%;
   margin:auto;
   border-collapse:collapse;
+  border-radius:15px;
+  overflow:hidden;
 }
 
 th, td{
