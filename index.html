@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Foto Puzzle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,10 +22,19 @@
 </div>
 
 <!-- JUEGO -->
-<div id="gameScreen" class="screen">
-  <h2 id="timer">Tiempo: 0:00</h2>
+<div id="gameScreen" class="screen game-layout">
+  
+  <div class="top-bar">
+    <h2 id="timer">01:40</h2>
+  </div>
+
   <div id="board"></div>
-  <button onclick="restart()">Nueva Foto</button>
+
+  <div class="bottom-bar">
+    <button onclick="restart()">Nueva Foto</button>
+    <button onclick="resetGame()">Reiniciar</button>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
