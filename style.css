@@ -1,73 +1,99 @@
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0b0f1a;
-  color: white;
-  text-align: center;
+body{
+  margin:0;
+  font-family:Arial;
+  background:#000;
+  color:white;
+  text-align:center;
 }
 
-/* pantallas */
-.screen { display: none; }
-.active { display: block; }
+.screen{ display:none; }
+.active{ display:block; }
 
-/* título neón */
-.title {
-  font-size: 30px;
-  color: #00ffcc;
+/* TITULO LED */
+.title{
+  font-size:32px;
+  margin-top:20px;
+  color:#00ffcc;
   text-shadow:
     0 0 5px #00ffcc,
     0 0 10px #00ffcc,
-    0 0 20px #00ccff;
+    0 0 20px #00ccff,
+    0 0 40px #00ccff;
 }
 
-/* icono */
-.camera-icon {
-  font-size: 80px;
-  animation: pulse 1s infinite;
+/* LENTE */
+.lens{
+  width:180px;
+  height:180px;
+  margin:30px auto;
+  border-radius:50%;
+  background:radial-gradient(circle,#111 20%,#000 60%);
+  box-shadow:
+    0 0 20px #00ffcc,
+    inset 0 0 30px #00ccff,
+    inset 0 0 60px black;
+  position:relative;
 }
 
-@keyframes pulse {
-  50% { transform: scale(1.2); }
+.lens::after{
+  content:"";
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  position:absolute;
+  top:20px;
+  left:20px;
 }
 
-/* video */
-video {
-  width: 80%;
-  max-width: 300px;
-  border-radius: 20px;
-  margin-top: 10px;
+/* BOTON */
+button{
+  padding:10px 20px;
+  margin:15px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
 }
 
-/* botones */
-button {
-  padding: 12px 20px;
-  margin: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #00ff88;
-  color: black;
-  font-weight: bold;
+.btn-glow{
+  background:#00ffcc;
+  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
 }
 
-/* puzzle responsive */
-#puzzle {
-  width: 90vw;
-  max-width: 320px;
-  aspect-ratio: 1/1;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+/* VIDEO */
+video{
+  width:80%;
+  max-width:300px;
+  border-radius:20px;
+  border:3px solid #00ffcc;
+  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
 }
 
-/* piezas */
-.tile {
-  width: 100%;
-  height: 100%;
-  background-size: 300% 300%;
-  transition: all 0.2s;
+/* BOARD */
+#board{
+  width:300px;
+  height:300px;
+  margin:20px auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
+  gap:4px;
 }
 
-.empty {
-  background: #111;
+/* PIEZAS */
+.tile{
+  width:100%;
+  height:100%;
+  background-size:300% 300%;
+  border-radius:8px;
+
+  box-shadow:
+    inset 0 0 5px rgba(255,255,255,0.3),
+    0 4px 8px rgba(0,0,0,0.6);
+
+  transition:0.2s;
+}
+
+.tile:active{
+  transform:scale(0.95);
 }
