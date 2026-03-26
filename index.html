@@ -24,7 +24,7 @@
 
 <!-- INICIO -->
 <div id="homeScreen" class="screen active">
-  <h1 class="logo">PIEZA</h1>
+  <h1 class="logo pulsing">PIEZA</h1>
   <h1 class="logo pieza">CABEZA</h1>
   <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
 </div>
@@ -45,6 +45,7 @@
   <div class="controls">
     <button onclick="restartCamera()">NUEVA FOTO</button>
     <button onclick="resetGame()">REINICIAR</button>
+    <button onclick="clearHistory()">BORRAR DATOS</button>
   </div>
 
   <div id="overlayMessage"></div>
@@ -52,9 +53,12 @@
 </div>
 
 <!-- HISTORIAL -->
+<div id="historyTableHeader" style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:20px;">
+  <span>Historias</span>
+  <button onclick="clearHistory()" class="clear-btn">BORRAR DATOS</button>
+</div>
+
 <div id="historyTable"></div>
-
-
 
 <script src="script.js"></script>
 </body>
