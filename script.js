@@ -10,7 +10,7 @@ let imageSrc = "";
 let timeLeft = 100;
 let interval = null;
 
-/* CAMBIO PANTALLA */
+/* CAMBIO DE PANTALLA */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
@@ -45,11 +45,12 @@ function takePhoto(){
   initGame();
 }
 
-/* JUEGO */
+/* INICIAR JUEGO */
 function initGame(){
   tiles = [0,1,2,3,4,5,6,7,8];
   emptyIndex = 8;
   overlay.innerText = "";
+  overlay.className = "";
 
   shuffle();
   render();
@@ -58,15 +59,15 @@ function initGame(){
   startTimer();
 }
 
-/* MEZCLA */
+/* MEZCLAR */
 function shuffle(){
-  for(let i=0;i<100;i++){
+  for(let i=0;i<120;i++){
     let rand = Math.floor(Math.random()*9);
-    move(rand);
+    move(rand, false);
   }
 }
 
-/* RENDER */
+/* RENDER (OPTIMIZADO PARA CELULAR) */
 function render(){
   board.innerHTML="";
 
@@ -80,17 +81,20 @@ function render(){
       let y = Math.floor(num / 3);
 
       div.style.backgroundImage = `url(${imageSrc})`;
-      div.style.backgroundPosition = `${x*50}% ${y*50}%`;
+      div.style.backgroundSize = "300% 300%";
+      div.style.backgroundPosition = `${x * 50}% ${y * 50}%`;
 
-      div.onclick = ()=>move(index);
+      // 👇 MEJOR RESPUESTA TÁCTIL (CELULAR)
+      div.addEventListener("click", ()=>move(index));
+      div.addEventListener("touchstart", ()=>move(index), {passive:true});
     }
 
     board.appendChild(div);
   });
 }
 
-/* MOVER */
-function move(index){
+/* MOVER PIEZA */
+function move(index, check=true){
   let row = Math.floor(index / 3);
   let col = index % 3;
 
@@ -106,11 +110,11 @@ function move(index){
     emptyIndex = index;
     render();
 
-    checkWin();
+    if(check) checkWin();
   }
 }
 
-/* GANAR */
+/* VERIFICAR GANADOR */
 function checkWin(){
   let correct = [0,1,2,3,4,5,6,7,8];
 
@@ -153,4 +157,4 @@ function restart(){
 
 function resetGame(){
   initGame();
-}
+  }
