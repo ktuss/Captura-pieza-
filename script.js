@@ -1,56 +1,53 @@
 let video = document.getElementById("video");
-let puzzle = document.getElementById("puzzle");
+let stream = null;
+
+let board = document.getElementById("board");
 
 let tiles = [];
 let emptyIndex = 8;
 let imageSrc = "";
 
-// navegación
+let timer = 0;
+let interval = null;
+
+/* CAMBIO DE PANTALLA */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-function goHome(){
-  stopCamera();
-  show("home");
-}
-
-// cámara
-let stream = null;
-
-function startCamera(){
+/* INICIAR CAMARA */
+async function startCamera(){
   show("cameraScreen");
 
-  navigator.mediaDevices.getUserMedia({video:true})
-    .then(s => {
-      stream = s;
-      video.srcObject = stream;
-    });
+  stream = await navigator.mediaDevices.getUserMedia({video:true});
+  video.srcObject = stream;
 }
 
-function stopCamera(){
-  if(stream){
-    stream.getTracks().forEach(t=>t.stop());
-    stream = null;
-  }
-  video.srcObject = null;
-}
-
+/* TOMAR FOTO */
 function takePhoto(){
   let canvas = document.createElement("canvas");
-  canvas.width = 300;
-  canvas.height = 300;
-  let ctx = canvas.getContext("2d");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 
-  ctx.drawImage(video,0,0,300,300);
+  let ctx = canvas.getContext("2d");
+  ctx.drawImage(video,0,0);
+
   imageSrc = canvas.toDataURL();
 
   stopCamera();
   initGame();
 }
 
-// juego
+/* APAGAR CAMARA */
+function stopCamera(){
+  if(stream){
+    stream.getTracks().forEach(track=>track.stop());
+    stream = null;
+  }
+}
+
+/* INICIAR JUEGO */
 function initGame(){
   tiles = [0,1,2,3,4,5,6,7,8];
   emptyIndex = 8;
@@ -59,70 +56,74 @@ function initGame(){
   render();
 
   show("gameScreen");
+  startTimer();
 }
 
+/* MEZCLAR */
 function shuffle(){
-  for(let i=0;i<50;i++){
-    let moves = [];
-
-    if(emptyIndex%3!==0) moves.push(emptyIndex-1);
-    if(emptyIndex%3!==2) moves.push(emptyIndex+1);
-    if(emptyIndex>2) moves.push(emptyIndex-3);
-    if(emptyIndex<6) moves.push(emptyIndex+3);
-
-    let rand = moves[Math.floor(Math.random()*moves.length)];
-
-    [tiles[rand],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[rand]];
-    emptyIndex = rand;
+  for(let i=0;i<100;i++){
+    let rand = Math.floor(Math.random()*9);
+    move(rand);
   }
 }
 
+/* DIBUJAR */
 function render(){
-  puzzle.innerHTML="";
+  board.innerHTML="";
 
-  tiles.forEach((val,i)=>{
-    let div=document.createElement("div");
-    div.className="tile";
+  tiles.forEach((num,index)=>{
+    let div = document.createElement("div");
 
-    if(val===8){
-      div.classList.add("empty");
-    } else {
-      let x=val%3;
-      let y=Math.floor(val/3);
+    if(num !== 8){
+      div.className="tile";
 
-      div.style.backgroundImage=`url(${imageSrc})`;
-      div.style.backgroundPosition=`${x*50}% ${y*50}%`;
+      let x = num % 3;
+      let y = Math.floor(num / 3);
+
+      div.style.backgroundImage = `url(${imageSrc})`;
+      div.style.backgroundPosition = `${x*50}% ${y*50}%`;
+
+      div.onclick = ()=>move(index);
     }
 
-    div.onclick=()=>move(i);
-
-    puzzle.appendChild(div);
+    board.appendChild(div);
   });
 }
 
-function canMove(i){
-  let r=Math.floor(i/3), c=i%3;
-  let er=Math.floor(emptyIndex/3), ec=emptyIndex%3;
+/* MOVER */
+function move(index){
+  let validMoves = [
+    emptyIndex-1,
+    emptyIndex+1,
+    emptyIndex-3,
+    emptyIndex+3
+  ];
 
-  return (r===er && Math.abs(c-ec)===1) ||
-         (c===ec && Math.abs(r-er)===1);
+  if(validMoves.includes(index)){
+    [tiles[index],tiles[emptyIndex]] = [tiles[emptyIndex],tiles[index]];
+    emptyIndex = index;
+    render();
+  }
 }
 
-function move(i){
-  if(!canMove(i)) return;
+/* TIMER */
+function startTimer(){
+  clearInterval(interval);
+  timer = 0;
 
-  [tiles[i],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[i]];
-  emptyIndex=i;
+  interval = setInterval(()=>{
+    timer++;
 
-  render();
+    let min = Math.floor(timer/60);
+    let sec = timer%60;
+
+    document.getElementById("timer").innerText =
+      `Tiempo: ${min}:${sec.toString().padStart(2,'0')}`;
+  },1000);
 }
 
-// botones
-function nuevaFoto(){
-  stopCamera();
+/* REINICIAR */
+function restart(){
+  show("cameraScreen");
   startCamera();
 }
-
-function reiniciar(){
-  initGame();
-    }
