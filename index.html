@@ -23,24 +23,21 @@
 
 <!-- JUEGO -->
 <div id="gameScreen" class="screen game-layout">
+
   <div class="top-bar">
     <h2 id="timer">01:40</h2>
   </div>
 
-  <div id="board"></div>
-
-  <div class="bottom-bar">
-    <button onclick="restart()">Nueva Foto</button>
-    <button onclick="resetGame()">Reiniciar</button>
+  <div class="board-wrapper">
+    <div id="board"></div>
+    <div id="overlayMessage"></div>
   </div>
-</div>
 
-<!-- RESULTADO -->
-<div id="resultScreen" class="screen result">
-  <h1 id="resultText"></h1>
+  <div class="control-bar">
+    <button onclick="restart()">📸 Nueva</button>
+    <button onclick="resetGame()">🔄 Reiniciar</button>
+  </div>
 
-  <button onclick="restart()">Nueva Foto</button>
-  <button onclick="resetGame()">Reintentar</button>
 </div>
 
 <script src="script.js"></script>
