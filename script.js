@@ -7,7 +7,7 @@ let tiles = [];
 let emptyIndex = 8;
 let imageSrc = "";
 
-let timeLeft = 100;
+timeLeft = 100 - (difficulty * 5);
 let interval = null;
 
 /* 🏆 RANKING */
