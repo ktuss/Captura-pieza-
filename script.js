@@ -10,6 +10,9 @@ let imageSrc = "";
 let timeLeft = 100;
 let interval = null;
 
+/* 🏆 RANKING */
+let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
 /* PANTALLAS */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
@@ -56,6 +59,7 @@ function initGame(){
 
   show("gameScreen");
   startTimer();
+  showRanking();
 }
 
 /* MEZCLA */
@@ -90,7 +94,7 @@ function render(){
   });
 }
 
-/* MOVER + VIBRACIÓN */
+/* MOVER */
 function move(i,check=true){
   let r=Math.floor(i/3), c=i%3;
   let er=Math.floor(emptyIndex/3), ec=emptyIndex%3;
@@ -103,10 +107,7 @@ function move(i,check=true){
     [tiles[i],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[i]];
     emptyIndex=i;
 
-    // 📳 VIBRACIÓN
-    if(navigator.vibrate){
-      navigator.vibrate(40);
-    }
+    if(navigator.vibrate) navigator.vibrate(40);
 
     render();
     if(check) checkWin();
@@ -116,11 +117,34 @@ function move(i,check=true){
 /* GANAR */
 function checkWin(){
   let ok=[0,1,2,3,4,5,6,7,8];
+
   if(tiles.every((v,i)=>v===ok[i])){
     clearInterval(interval);
-    overlay.innerText="GANASTE 🎉";
+
+    overlay.innerText="GANASTE";
     overlay.className="win";
+
+    scores.push(timeLeft);
+    scores.sort((a,b)=>b-a);
+    scores=scores.slice(0,5);
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    showRanking();
   }
+}
+
+/* RANKING */
+function showRanking(){
+  let div=document.getElementById("ranking");
+
+  div.innerHTML="<h3>🏆 MEJORES</h3><ul>" +
+    scores.map(s=>{
+      let m=Math.floor(s/60);
+      let sec=s%60;
+      return `<li>${m}:${sec.toString().padStart(2,'0')}</li>`;
+    }).join("") +
+    "</ul>";
 }
 
 /* TIMER */
@@ -143,7 +167,7 @@ function startTimer(){
 
     if(timeLeft<=0){
       clearInterval(interval);
-      overlay.innerText="PERDISTE ❌";
+      overlay.innerText="PERDISTE";
       overlay.className="lose";
     }
 
