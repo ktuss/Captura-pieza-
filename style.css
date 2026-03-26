@@ -58,3 +58,67 @@ body{
   font-size:40px;
   text-shadow:0 0 20px yellow;
 }
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+/* CAMARA */
+video{
+  width:90%;
+  border:3px solid #00ff99;
+  box-shadow:0 0 20px #00ff99;
+  margin-top:20px;
+}
+
+/* TABLERO GRID */
+#board{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  width:90vw;
+  max-width:350px;
+  margin:auto;
+}
+
+/* PIEZAS */
+.tile{
+  aspect-ratio:1;
+  background-size:300% 300%;
+  border:1px solid #00ff99;
+}
+
+/* OVERLAY */
+#overlayMessage{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:40px;
+}
+
+/* PERDER */
+.lose{
+  color:red;
+  text-shadow:0 0 20px red;
+}
+
+/* ALERTA TIEMPO */
+.alert{
+  color:red;
+  animation:pulse 0.5s infinite;
+}
+
+/* RANKING */
+#ranking{
+  margin-top:20px;
+}
+
+.time-box{
+  border:2px solid #00ff99;
+  margin:5px;
+  padding:5px;
+  box-shadow:0 0 10px #00ff99;
+}
