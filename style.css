@@ -1,8 +1,9 @@
 body{
   margin:0;
-  font-family:Arial;
   background:#000;
   color:white;
+  font-family:'Bangers', cursive;
+  overflow:hidden;
 }
 
 /* PANTALLAS */
@@ -17,106 +18,109 @@ body{
 
 /* TITULO */
 .title{
-  font-size:28px;
+  font-size:38px;
+  letter-spacing:2px;
   color:#00ffcc;
   text-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
 }
 
-/* LENTE */
-.lens{
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  margin:20px;
-  background:radial-gradient(circle,#111,#000);
-  box-shadow:0 0 20px #00ffcc,inset 0 0 30px #00ccff;
-}
-
-/* BOTON */
+/* BOTONES */
 .btn-glow{
   background:#00ffcc;
-  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
-  padding:12px 20px;
   border:none;
-  border-radius:10px;
+  border-radius:15px;
+  padding:12px 20px;
+  margin-top:20px;
+
+  font-size:18px;
+  font-family:'Bangers', cursive;
+
+  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
+}
+
+.big{
+  font-size:26px;
+  padding:18px 30px;
 }
 
 /* VIDEO */
 video{
-  width:90%;
+  width:92%;
   max-width:350px;
   border-radius:20px;
   border:3px solid #00ffcc;
-  box-shadow:0 0 15px #00ffcc;
+  box-shadow:0 0 20px #00ffcc;
 }
 
-/* LAYOUT JUEGO */
+/* JUEGO */
 .game-layout{
   justify-content:space-between;
   padding:10px;
 }
 
 /* TIMER */
-.top-bar{
-  text-align:center;
-  font-size:22px;
+#timer{
+  font-size:28px;
+  text-shadow:0 0 10px #00ffcc;
 }
 
-/* WRAPPER con marco */
+/* CONTENEDOR */
 .board-wrapper{
-  position:relative;
-  width:92vw;
-  max-width:360px;
+  width:94vw;
+  max-width:380px;
 }
 
-/* MARCO SUSPENSO */
+/* TABLERO AJUSTADO PERFECTO */
 #board{
   width:100%;
   aspect-ratio:1/1;
+
   display:grid;
   grid-template-columns:repeat(3,1fr);
   grid-template-rows:repeat(3,1fr);
-  gap:6px;
+
+  gap:4px;
 
   border:3px solid #00ffcc;
   border-radius:15px;
+
   box-shadow:
     0 0 10px #00ffcc,
-    0 0 20px #00ccff;
+    0 0 25px #00ccff;
 }
 
-/* PIEZAS */
+/* PIEZAS MÁS GRANDES Y CÓMODAS */
 .tile{
-  background-size:300% 300%;
+  width:100%;
+  height:100%;
+
   border-radius:10px;
+
+  background-size:300% 300%;
+
   box-shadow:
     inset 0 0 6px rgba(255,255,255,0.3),
     0 6px 10px rgba(0,0,0,0.7);
-  transition:0.2s;
-}
-.tile:active{
-  transform:scale(0.92);
+
+  touch-action:manipulation;
 }
 
-/* MENSAJE CENTRAL */
+/* MENSAJE */
 #overlayMessage{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:32px;
-  font-weight:bold;
+
+  font-size:34px;
   text-align:center;
-  pointer-events:none;
 }
 
-/* GANAR */
 .win{
   color:#00ffcc;
   text-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
 }
 
-/* PERDER */
 .lose{
   color:red;
   text-shadow:0 0 10px red,0 0 20px darkred;
@@ -126,17 +130,21 @@ video{
 .control-bar{
   width:100%;
   display:flex;
-  justify-content:space-around;
-  margin-bottom:10px;
+  gap:10px;
 }
 
 .control-bar button{
   flex:1;
-  margin:5px;
-  padding:12px;
+
+  padding:14px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
+
+  font-size:20px;
+  font-family:'Bangers', cursive;
+
   background:#111;
   color:#00ffcc;
+
   box-shadow:0 0 10px #00ffcc;
 }
