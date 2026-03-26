@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Foto Juego</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- INICIO -->
+<div id="home" class="screen active">
+  <h1 class="title">PIEZA CABEZA</h1>
+  <div class="camera-icon">📸</div>
+  <button onclick="startCamera()">Entrar</button>
+</div>
+
+<!-- CAMARA -->
+<div id="cameraScreen" class="screen">
+  <h2>CAPTURAR PIEZAS</h2>
+  <video id="video" autoplay></video>
+  <br>
+  <button onclick="takePhoto()">Capturar</button>
+  <button onclick="goHome()">X</button>
+</div>
+
+<!-- JUEGO -->
+<div id="gameScreen" class="screen">
+  <h2 id="timer">Tiempo: 0s</h2>
+  <p>Desliza las piezas para completar la foto</p>
+
+  <div id="puzzle"></div>
+
+  <div>
+    <button onclick="nuevaFoto()">Nueva Foto</button>
+    <button onclick="reiniciar()">Reiniciar</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
