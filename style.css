@@ -153,3 +153,44 @@ th{
 td{
   box-shadow:0 0 5px #00ff99;
 }
+/* FONDO ESPACIO */
+body{
+  margin:0;
+  background: radial-gradient(circle at 20% 30%, #001a12, #000);
+  color:#00ff99;
+  font-family:'Bangers', cursive;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* ESTRELLAS */
+body::before, body::after{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+  background-image:
+    radial-gradient(2px 2px #00ffcc, transparent),
+    radial-gradient(1px 1px #00ff99, transparent),
+    radial-gradient(2px 2px #ffffff, transparent);
+  background-size: 120px 120px, 80px 80px, 200px 200px;
+  animation: starsMove 60s linear infinite;
+  opacity:0.4;
+  z-index:-1;
+}
+
+body::after{
+  animation-duration:120s;
+  opacity:0.2;
+}
+
+@keyframes starsMove{
+  from{
+    transform:translate(0,0);
+  }
+  to{
+    transform:translate(300px,300px);
+  }
+}
