@@ -6,16 +6,21 @@ body {
   text-align: center;
 }
 
+/* pantallas */
 .screen { display: none; }
 .active { display: block; }
 
+/* título neón */
 .title {
-  font-size: 28px;
-  background: linear-gradient(90deg, #00ff88, #00ccff);
-  -webkit-background-clip: text;
-  color: transparent;
+  font-size: 30px;
+  color: #00ffcc;
+  text-shadow:
+    0 0 5px #00ffcc,
+    0 0 10px #00ffcc,
+    0 0 20px #00ccff;
 }
 
+/* icono */
 .camera-icon {
   font-size: 80px;
   animation: pulse 1s infinite;
@@ -25,11 +30,15 @@ body {
   50% { transform: scale(1.2); }
 }
 
+/* video */
 video {
-  width: 280px;
+  width: 80%;
+  max-width: 300px;
   border-radius: 20px;
+  margin-top: 10px;
 }
 
+/* botones */
 button {
   padding: 12px 20px;
   margin: 10px;
@@ -40,19 +49,22 @@ button {
   font-weight: bold;
 }
 
+/* puzzle responsive */
 #puzzle {
-  width: 300px;
-  height: 300px;
+  width: 90vw;
+  max-width: 320px;
+  aspect-ratio: 1/1;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
 }
 
+/* piezas */
 .tile {
-  width: 100px;
-  height: 100px;
-  background-size: 300px 300px;
+  width: 100%;
+  height: 100%;
+  background-size: 300% 300%;
   transition: all 0.2s;
 }
 
