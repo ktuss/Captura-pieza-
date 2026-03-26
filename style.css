@@ -171,3 +171,27 @@ video{
   border-radius:8px;
   box-shadow:0 0 10px #00ffcc;
 }
+/* ⚡ RAYO 3D */
+.ranking-title{
+  font-size:22px;
+  animation:spin3D 3s infinite linear;
+  display:inline-block;
+  text-shadow:0 0 10px #00ffcc, 0 0 20px #00ffcc;
+}
+
+@keyframes spin3D{
+  0%{ transform:rotateY(0deg); }
+  50%{ transform:rotateY(180deg); }
+  100%{ transform:rotateY(360deg); }
+}
+
+/* ⏱ CUADROS DE TIEMPO */
+.time-box{
+  background:black;
+  margin:6px;
+  padding:10px;
+  border-radius:12px;
+  box-shadow:0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
+  font-size:20px;
+  letter-spacing:2px;
+}
