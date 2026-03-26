@@ -11,6 +11,9 @@ let timeLeft = 100;
 let interval = null;
 let difficulty = 1;
 
+/* HISTORIAL */
+let history = JSON.parse(localStorage.getItem("history")) || [];
+
 /* PANTALLAS */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
@@ -45,7 +48,7 @@ function takePhoto(){
   initGame();
 }
 
-/* INICIO JUEGO */
+/* INICIO */
 function initGame(){
   tiles=[0,1,2,3,4,5,6,7,8];
   emptyIndex=8;
@@ -57,9 +60,10 @@ function initGame(){
 
   show("gameScreen");
   startTimer();
+  showHistory();
 }
 
-/* MEZCLAR */
+/* MEZCLA */
 function shuffle(){
   let moves = 80 + (difficulty * 40);
   for(let i=0;i<moves;i++){
@@ -132,8 +136,41 @@ function checkWin(){
     overlay.innerText="GANASTE";
     overlay.className="win";
 
+    let now = new Date();
+    let tiempo = 100 - timeLeft;
+
+    history.push({
+      fecha: now.toLocaleDateString(),
+      tiempo: tiempo
+    });
+
+    history = history.slice(-10);
+    localStorage.setItem("history", JSON.stringify(history));
+
+    showHistory();
     difficulty++;
   }
+}
+
+/* HISTORIAL */
+function showHistory(){
+  let div = document.getElementById("historyTable");
+
+  div.innerHTML = `
+    <h3>⚡ HISTORIAL</h3>
+    <table>
+      <tr>
+        <th>Fecha</th>
+        <th>Segundos</th>
+      </tr>
+      ${history.map(h=>`
+        <tr>
+          <td>${h.fecha}</td>
+          <td>${h.tiempo}</td>
+        </tr>
+      `).join("")}
+    </table>
+  `;
 }
 
 /* TIMER */
@@ -161,6 +198,15 @@ function startTimer(){
     }
 
   },1000);
+}
+
+/* BOTONES */
+function restartCamera(){
+  startCamera();
+}
+
+function resetGame(){
+  initGame();
 }
 
 /* INTRO */
