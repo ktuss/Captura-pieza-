@@ -197,11 +197,3 @@ function startTimer(){
 /* BOTONES */
 function restart(){ startCamera(); }
 function resetGame(){ initGame(); }
-window.addEventListener("load", ()=>{
-
-  setTimeout(()=>{
-    document.getElementById("introAnimation").style.display="none";
-    document.getElementById("homeScreen").classList.add("active");
-  },2000);
-
-});
