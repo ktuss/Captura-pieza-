@@ -1,6 +1,7 @@
 let video = document.getElementById("video");
 let stream = null;
 let board = document.getElementById("board");
+let overlay = document.getElementById("overlayMessage");
 
 let tiles = [];
 let emptyIndex = 8;
@@ -48,6 +49,7 @@ function takePhoto(){
 function initGame(){
   tiles = [0,1,2,3,4,5,6,7,8];
   emptyIndex = 8;
+  overlay.innerText = "";
 
   shuffle();
   render();
@@ -56,7 +58,7 @@ function initGame(){
   startTimer();
 }
 
-/* MEZCLAR */
+/* MEZCLA */
 function shuffle(){
   for(let i=0;i<100;i++){
     let rand = Math.floor(Math.random()*9);
@@ -87,7 +89,7 @@ function render(){
   });
 }
 
-/* MOVIMIENTO */
+/* MOVER */
 function move(index){
   let row = Math.floor(index / 3);
   let col = index % 3;
@@ -104,24 +106,19 @@ function move(index){
     emptyIndex = index;
     render();
 
-    checkWin(); // 🔥 revisar si ganó
+    checkWin();
   }
 }
 
-/* DETECTAR VICTORIA 🔥 */
+/* GANAR */
 function checkWin(){
   let correct = [0,1,2,3,4,5,6,7,8];
 
-  let isWin = tiles.every((v,i)=>v === correct[i]);
-
-  if(isWin){
+  if(tiles.every((v,i)=>v===correct[i])){
     clearInterval(interval);
 
-    let txt = document.getElementById("resultText");
-    txt.innerText = "🎉 GANASTE";
-    txt.className = "win";
-
-    show("resultScreen");
+    overlay.innerText = "GANASTE 🎉";
+    overlay.className = "win";
   }
 }
 
@@ -139,14 +136,11 @@ function startTimer(){
     document.getElementById("timer").innerText =
       `${min}:${sec.toString().padStart(2,'0')}`;
 
-    if(timeLeft <= 0){
+    if(timeLeft<=0){
       clearInterval(interval);
 
-      let txt = document.getElementById("resultText");
-      txt.innerText = "❌ PERDISTE";
-      txt.className = "lose";
-
-      show("resultScreen");
+      overlay.innerText = "PERDISTE ❌";
+      overlay.className = "lose";
     }
 
   },1000);
