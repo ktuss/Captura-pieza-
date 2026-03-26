@@ -1,108 +1,95 @@
 body{
   margin:0;
-  background:#000;
+  font-family: Arial, sans-serif;
+  background:black;
   color:white;
-  font-family:'Bangers', cursive;
-  overflow:hidden;
+  text-align:center;
 }
 
-/* PANTALLAS */
 .screen{
   display:none;
-  height:100vh;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
 }
-.active{ display:flex; }
+.active{
+  display:block;
+}
 
 /* TITULO */
 .title{
-  font-size:38px;
-  letter-spacing:2px;
   color:#00ffcc;
-  text-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
+  text-shadow:0 0 10px #00ffcc;
+  margin-top:40px;
 }
 
-/* BOTONES */
-.btn-glow{
-  background:#00ffcc;
-  border:none;
-  border-radius:15px;
-  padding:12px 20px;
-  margin-top:20px;
-
+/* BOTON PRINCIPAL */
+.btn-main{
+  margin-top:30px;
+  padding:15px 25px;
   font-size:18px;
-  font-family:'Bangers', cursive;
-
-  box-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
-}
-
-.big{
-  font-size:26px;
-  padding:18px 30px;
+  border:none;
+  border-radius:10px;
+  background:#00ffcc;
+  color:black;
 }
 
 /* VIDEO */
 video{
-  width:92%;
-  max-width:350px;
-  border-radius:20px;
-  border:3px solid #00ffcc;
+  width:90%;
+  margin-top:20px;
+  border-radius:15px;
   box-shadow:0 0 20px #00ffcc;
 }
 
-/* JUEGO */
-.game-layout{
-  justify-content:space-between;
-  padding:10px;
+/* TABLERO */
+#board{
+  width:90vw;
+  max-width:320px;
+  aspect-ratio:1;
+  margin:10px auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+}
+
+/* PIEZAS */
+.tile{
+  width:100%;
+  aspect-ratio:1;
+  background-size:300% 300%;
+  border-radius:6px;
+  box-shadow:0 0 8px #00ffcc;
+  transition:0.2s;
+}
+
+.tile:active{
+  transform:scale(0.9);
 }
 
 /* TIMER */
 #timer{
-  font-size:28px;
-  text-shadow:0 0 10px #00ffcc;
+  font-size:24px;
+  color:#00ffcc;
+  margin-top:10px;
+  animation:pulse 1.5s infinite;
 }
 
-/* CONTENEDOR */
-.board-wrapper{
-  width:94vw;
-  max-width:380px;
+/* ALERTA ROJA */
+.alert{
+  color:red !important;
+  text-shadow:0 0 10px red,0 0 20px red;
+  animation:pulseRed 0.7s infinite;
 }
 
-/* TABLERO AJUSTADO PERFECTO */
-#board{
-  width:100%;
-  aspect-ratio:1/1;
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  grid-template-rows:repeat(3,1fr);
-
-  gap:4px;
-
-  border:3px solid #00ffcc;
-  border-radius:15px;
-
-  box-shadow:
-    0 0 10px #00ffcc,
-    0 0 25px #00ccff;
+/* ANIMACIONES */
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
 }
 
-/* PIEZAS MÁS GRANDES Y CÓMODAS */
-.tile{
-  width:100%;
-  height:100%;
-
-  border-radius:10px;
-
-  background-size:300% 300%;
-
-  box-shadow:
-    inset 0 0 6px rgba(255,255,255,0.3),
-    0 6px 10px rgba(0,0,0,0.7);
-
-  touch-action:manipulation;
+@keyframes pulseRed{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
 }
 
 /* MENSAJE */
@@ -111,40 +98,38 @@ video{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-
-  font-size:34px;
-  text-align:center;
+  font-size:28px;
+  font-weight:bold;
 }
 
 .win{
-  color:#00ffcc;
-  text-shadow:0 0 10px #00ffcc,0 0 20px #00ccff;
+  color:#00ff00;
+  text-shadow:0 0 20px #00ff00;
 }
 
 .lose{
   color:red;
-  text-shadow:0 0 10px red,0 0 20px darkred;
+  text-shadow:0 0 20px red;
 }
 
-/* BARRA BOTONES */
-.control-bar{
+/* BOTONES ABAJO */
+.controls{
+  position:fixed;
+  bottom:10px;
   width:100%;
   display:flex;
   gap:10px;
+  padding:10px;
 }
 
-.control-bar button{
+.btn-led{
   flex:1;
-
-  padding:14px;
+  padding:12px;
   border:none;
   border-radius:12px;
-
-  font-size:20px;
-  font-family:'Bangers', cursive;
-
-  background:#111;
+  background:black;
   color:#00ffcc;
-
-  box-shadow:0 0 10px #00ffcc;
+  font-weight:bold;
+  box-shadow:0 0 10px #00ffcc, inset 0 0 10px #00ffcc;
+  animation:pulse 1.5s infinite;
 }
