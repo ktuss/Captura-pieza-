@@ -190,3 +190,11 @@ function startTimer(){
 /* BOTONES */
 function restart(){ startCamera(); }
 function resetGame(){ initGame(); }
+window.addEventListener("load", ()=>{
+
+  setTimeout(()=>{
+    let intro = document.getElementById("introAnimation");
+    if(intro) intro.style.display="none";
+  },2000);
+
+});
