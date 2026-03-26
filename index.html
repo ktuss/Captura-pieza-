@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- TIPOGRAFIA BOMBING -->
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
   <title>Pieza-Cabeza</title>
@@ -13,25 +12,19 @@
 
 <body>
 
-<!-- INICIO -->
 <div id="homeScreen" class="screen active">
-
   <h1 class="logo">
     PIEZA-
     <span class="pieza">CABEZA</span>
   </h1>
-
   <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
-
 </div>
 
-<!-- CAMARA -->
 <div id="cameraScreen" class="screen">
   <video id="video" autoplay></video>
   <button class="btn-enter big" onclick="takePhoto()">TOMAR FOTO</button>
 </div>
 
-<!-- JUEGO -->
 <div id="gameScreen" class="screen">
 
   <div id="timer">1:40</div>
@@ -40,6 +33,9 @@
     <div id="board"></div>
     <div id="overlayMessage"></div>
   </div>
+
+  <!-- RANKING -->
+  <div id="ranking"></div>
 
   <div class="controls">
     <button onclick="restart()">NUEVA</button>
