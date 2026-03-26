@@ -6,26 +6,26 @@ body{
   text-align:center;
 }
 
-/* PANTALLAS */
 .screen{ display:none; }
 .active{ display:block; }
 
 /* LOGO */
 .logo{
   margin-top:60px;
-  font-size:36px;
+  font-size:42px;
   color:#00ffcc;
   text-shadow:0 0 15px #00ffcc;
 }
 
-/* PIEZA ESPECIAL */
+/* PIEZA */
 .pieza{
   display:inline-block;
-  padding:10px;
+  font-size:32px;
+  padding:15px 20px;
   background:#00ffcc;
   color:black;
-  border-radius:10px;
-  box-shadow:0 0 20px #00ffcc;
+  border-radius:12px;
+  box-shadow:0 0 20px #00ffcc, inset 0 0 10px rgba(255,255,255,0.5);
 }
 
 /* BOTON ENTRAR */
@@ -37,19 +37,13 @@ body{
   border-radius:15px;
   background:#00ffcc;
   color:black;
-
-  animation: bounce 1.5s infinite;
+  animation:bounce 1.5s infinite;
 }
 
-/* EFECTO DIVERTIDO */
+.big{ font-size:26px; }
+
 @keyframes bounce{
-  0%{ transform:translateY(0); }
   50%{ transform:translateY(-10px) scale(1.1); }
-  100%{ transform:translateY(0); }
-}
-
-.big{
-  font-size:26px;
 }
 
 /* VIDEO */
@@ -68,7 +62,6 @@ video{
   animation:pulse 1.5s infinite;
 }
 
-/* ALERTA */
 .alert{
   color:red !important;
   animation:pulseRed 0.7s infinite;
@@ -96,7 +89,6 @@ video{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:4px;
-
   border-radius:15px;
   box-shadow:0 0 20px #00ffcc;
 }
@@ -115,14 +107,21 @@ video{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:30px;
+  font-size:32px;
 }
 
+/* GANAR DESTELLO */
 .win{
-  color:#00ff00;
-  text-shadow:0 0 20px #00ff00;
+  color:yellow;
+  text-shadow:0 0 10px yellow, 0 0 25px gold, 0 0 40px orange;
+  animation:flash 0.6s infinite;
 }
 
+@keyframes flash{
+  50%{ transform:scale(1.2); opacity:0.7; }
+}
+
+/* PERDER */
 .lose{
   color:red;
   text-shadow:0 0 20px red;
@@ -146,7 +145,29 @@ video{
   background:black;
   color:#00ffcc;
   font-size:18px;
-
   box-shadow:0 0 10px #00ffcc;
   animation:pulse 1.5s infinite;
+}
+
+/* RANKING */
+#ranking{
+  margin-top:10px;
+  color:#00ffcc;
+}
+
+#ranking h3{
+  margin:5px;
+}
+
+#ranking ul{
+  list-style:none;
+  padding:0;
+}
+
+#ranking li{
+  background:#111;
+  margin:4px;
+  padding:6px;
+  border-radius:8px;
+  box-shadow:0 0 10px #00ffcc;
 }
