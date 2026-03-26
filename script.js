@@ -1,4 +1,4 @@
-let video = document.getElementById("video");
+ let video = document.getElementById("video");
 let stream = null;
 
 let board = document.getElementById("board");
@@ -90,17 +90,20 @@ function render(){
   });
 }
 
-/* MOVER */
+/* MOVIMIENTO CORRECTO 🔥 */
 function move(index){
-  let validMoves = [
-    emptyIndex-1,
-    emptyIndex+1,
-    emptyIndex-3,
-    emptyIndex+3
-  ];
+  let row = Math.floor(index / 3);
+  let col = index % 3;
 
-  if(validMoves.includes(index)){
-    [tiles[index],tiles[emptyIndex]] = [tiles[emptyIndex],tiles[index]];
+  let emptyRow = Math.floor(emptyIndex / 3);
+  let emptyCol = emptyIndex % 3;
+
+  let isValid =
+    (row === emptyRow && Math.abs(col - emptyCol) === 1) ||
+    (col === emptyCol && Math.abs(row - emptyRow) === 1);
+
+  if(isValid){
+    [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
     emptyIndex = index;
     render();
   }
@@ -126,4 +129,4 @@ function startTimer(){
 function restart(){
   show("cameraScreen");
   startCamera();
-}
+    }
