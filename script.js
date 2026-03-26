@@ -10,7 +10,7 @@ let imageSrc = "";
 let timeLeft = 100;
 let interval = null;
 
-/* CAMBIO DE PANTALLA */
+/* PANTALLAS */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
@@ -45,12 +45,12 @@ function takePhoto(){
   initGame();
 }
 
-/* INICIAR JUEGO */
+/* INICIAR */
 function initGame(){
   tiles = [0,1,2,3,4,5,6,7,8];
   emptyIndex = 8;
-  overlay.innerText = "";
-  overlay.className = "";
+  overlay.innerText="";
+  overlay.className="";
 
   shuffle();
   render();
@@ -59,92 +59,95 @@ function initGame(){
   startTimer();
 }
 
-/* MEZCLAR */
+/* MEZCLA */
 function shuffle(){
-  for(let i=0;i<120;i++){
+  for(let i=0;i<100;i++){
     let rand = Math.floor(Math.random()*9);
-    move(rand, false);
+    move(rand,false);
   }
 }
 
-/* RENDER (OPTIMIZADO PARA CELULAR) */
+/* RENDER */
 function render(){
   board.innerHTML="";
 
   tiles.forEach((num,index)=>{
     let div = document.createElement("div");
 
-    if(num !== 8){
+    if(num!==8){
       div.className="tile";
 
-      let x = num % 3;
-      let y = Math.floor(num / 3);
+      let x = num%3;
+      let y = Math.floor(num/3);
 
-      div.style.backgroundImage = `url(${imageSrc})`;
-      div.style.backgroundSize = "300% 300%";
-      div.style.backgroundPosition = `${x * 50}% ${y * 50}%`;
+      div.style.backgroundImage=`url(${imageSrc})`;
+      div.style.backgroundPosition=`${x*50}% ${y*50}%`;
 
-      // 👇 MEJOR RESPUESTA TÁCTIL (CELULAR)
-      div.addEventListener("click", ()=>move(index));
-      div.addEventListener("touchstart", ()=>move(index), {passive:true});
+      div.onclick=()=>move(index);
+      div.ontouchstart=()=>move(index);
     }
 
     board.appendChild(div);
   });
 }
 
-/* MOVER PIEZA */
-function move(index, check=true){
-  let row = Math.floor(index / 3);
-  let col = index % 3;
+/* MOVIMIENTO */
+function move(index,check=true){
+  let row=Math.floor(index/3);
+  let col=index%3;
 
-  let er = Math.floor(emptyIndex / 3);
-  let ec = emptyIndex % 3;
+  let er=Math.floor(emptyIndex/3);
+  let ec=emptyIndex%3;
 
-  let valid =
-    (row === er && Math.abs(col - ec) === 1) ||
-    (col === ec && Math.abs(row - er) === 1);
+  let valid=
+    (row===er && Math.abs(col-ec)===1) ||
+    (col===ec && Math.abs(row-er)===1);
 
   if(valid){
-    [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
-    emptyIndex = index;
+    [tiles[index],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[index]];
+    emptyIndex=index;
     render();
 
     if(check) checkWin();
   }
 }
 
-/* VERIFICAR GANADOR */
+/* GANAR */
 function checkWin(){
-  let correct = [0,1,2,3,4,5,6,7,8];
+  let correct=[0,1,2,3,4,5,6,7,8];
 
   if(tiles.every((v,i)=>v===correct[i])){
     clearInterval(interval);
-
-    overlay.innerText = "GANASTE 🎉";
-    overlay.className = "win";
+    overlay.innerText="GANASTE 🎉";
+    overlay.className="win";
   }
 }
 
 /* TIMER */
 function startTimer(){
   clearInterval(interval);
-  timeLeft = 100;
+  timeLeft=100;
 
-  interval = setInterval(()=>{
+  interval=setInterval(()=>{
     timeLeft--;
 
-    let min = Math.floor(timeLeft/60);
-    let sec = timeLeft%60;
+    let min=Math.floor(timeLeft/60);
+    let sec=timeLeft%60;
 
-    document.getElementById("timer").innerText =
-      `${min}:${sec.toString().padStart(2,'0')}`;
+    let timer=document.getElementById("timer");
+
+    timer.innerText=`${min}:${sec.toString().padStart(2,'0')}`;
+
+    if(timeLeft<=12){
+      timer.classList.add("alert");
+    }else{
+      timer.classList.remove("alert");
+    }
 
     if(timeLeft<=0){
       clearInterval(interval);
-
-      overlay.innerText = "PERDISTE ❌";
-      overlay.className = "lose";
+      overlay.innerText="PERDISTE ❌";
+      overlay.className="lose";
     }
 
   },1000);
@@ -157,4 +160,4 @@ function restart(){
 
 function resetGame(){
   initGame();
-  }
+}
