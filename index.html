@@ -22,88 +22,50 @@
   </div>
 </div>
 
-<!-- INICIO -->
+<!-- INICIO / MENÚ -->
 <div id="homeScreen" class="screen active">
   <h1 class="logo pulsing">PIEZA</h1>
   <h1 class="logo pieza">CABEZA</h1>
   <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
+
+  <!-- VIDEO DE FACEBOOK -->
+  <div id="fbVideo" style="margin:20px auto; max-width:500px;">
+    <iframe 
+      src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/share/v/1EDuoFGtbT/&show_text=0&width=500" 
+      width="500" 
+      height="280" 
+      style="border:none;overflow:hidden;" 
+      scrolling="no" 
+      frameborder="0" 
+      allowfullscreen="true"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+    </iframe>
+  </div>
 </div>
 
 <!-- CAMARA -->
 <div id="cameraScreen" class="screen">
-  <canvas id="spaceCanvas"></canvas> <!-- SOLO aparece en cámara/juego -->
   <video id="video" autoplay playsinline></video>
   <button class="btn-enter" onclick="takePhoto()">TOMAR FOTO</button>
 </div>
 
 <!-- JUEGO -->
 <div id="gameScreen" class="screen">
-
-  <canvas id="spaceCanvasGame"></canvas> <!-- Fondo estrellas solo aquí -->
-
+  <canvas id="spaceCanvasGame"></canvas>
   <div id="board"></div>
-
   <p id="timer">1:40</p>
 
   <div class="controls">
     <button onclick="restartCamera()">NUEVA FOTO</button>
     <button onclick="resetGame()">REINICIAR</button>
-    <button onclick="clearHistory()">BORRAR DATOS</button>
   </div>
 
   <div id="overlayMessage"></div>
-
 </div>
 
 <!-- HISTORIAL -->
 <div id="historyTable"></div>
 
 <script src="script.js"></script>
-
-<!-- SCRIPT FONDO ESTRELLAS SOLO PARA JUEGO -->
-<script>
-function initStars(canvasId){
-  const canvas = document.getElementById(canvasId);
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
-  let stars = [];
-  for(let i=0;i<150;i++){
-    stars.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      r: Math.random()*1.5+0.5,
-      d: Math.random()*0.5
-    });
-  }
-
-  function animate(){
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = '#fff';
-    stars.forEach(s=>{
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-      ctx.fill();
-      s.y += s.d;
-      if(s.y>canvas.height) s.y=0;
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-// Llama la animación de estrellas solo en pantalla de juego/cámara
-document.getElementById('gameScreen').addEventListener('mouseenter', ()=>{
-  initStars('spaceCanvasGame');
-});
-</script>
-
 </body>
 </html>
