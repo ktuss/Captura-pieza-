@@ -112,3 +112,29 @@ video{
   justify-content:space-around;
   margin-bottom:10px;
 }
+/* PANTALLA FINAL */
+.result{
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+/* TEXTO GANAR */
+.win{
+  color:#00ffcc;
+  font-size:40px;
+  text-shadow:
+    0 0 10px #00ffcc,
+    0 0 20px #00ffcc,
+    0 0 40px #00ccff;
+}
+
+/* TEXTO PERDER */
+.lose{
+  color:red;
+  font-size:40px;
+  text-shadow:
+    0 0 10px red,
+    0 0 20px red,
+    0 0 40px darkred;
+}
