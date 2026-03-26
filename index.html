@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Pieza Cabeza</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
-  <title>Pieza-Cabeza</title>
-  <link rel="stylesheet" href="style.css">
+<!-- Tipografía estilo gaming -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div id="homeScreen" class="screen active">
-  <h1 class="logo">
-    PIEZA-
-    <span class="pieza">CABEZA</span>
-  </h1>
-  <button class="btn-enter" onclick="startCamera()">ENTRAR</button>
+<!-- INTRO -->
+<div id="introAnimation">
+  <div class="puzzle-intro">
+    <div class="piece p1"></div>
+    <div class="piece p2"></div>
+    <div class="piece p3"></div>
+    <div class="piece p4"></div>
+    <div class="piece p5"></div>
+  </div>
 </div>
 
-<div id="cameraScreen" class="screen">
-  <video id="video" autoplay></video>
-  <button class="btn-enter big" onclick="takePhoto()">TOMAR FOTO</button>
+<!-- INICIO -->
+<div id="homeScreen" class="screen">
+
+  <h1 class="logo">PIEZA</h1>
+  <h1 class="logo pieza-box">CABEZA</h1>
+
+  <button class="btn-enter" onclick="initGame()">ENTRAR</button>
+
 </div>
 
+<!-- JUEGO -->
 <div id="gameScreen" class="screen">
 
-  <div id="timer">1:40</div>
+  <div id="board"></div>
 
-  <div class="board-wrapper">
-    <div id="board"></div>
-    <div id="overlayMessage"></div>
-  </div>
+  <p id="timer">0:00</p>
 
-  <!-- RANKING -->
-  <div id="ranking"></div>
-
-  <div class="controls">
-    <button onclick="restart()">NUEVA</button>
-    <button onclick="resetGame()">REINICIAR</button>
-  </div>
+  <div id="overlayMessage"></div>
 
 </div>
+
+<!-- RANKING -->
+<div id="ranking"></div>
 
 <script src="script.js"></script>
 </body>
