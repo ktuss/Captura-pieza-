@@ -1,3 +1,5 @@
+/* --------------------------- */
+/* ESTILOS GENERALES */
 body{
   margin:0;
   font-family:'Bangers', cursive;
@@ -7,20 +9,12 @@ body{
   color:#00ff99;
 }
 
-/* CANVAS FONDO */
-#spaceCanvas{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1; /* Fondo detrás de todo */
-}
-
+/* --------------------------- */
 /* PANTALLAS */
 .screen{ display:none; }
 .screen.active{ display:block; }
 
+/* --------------------------- */
 /* LOGO */
 .logo{
   font-size:70px;
@@ -38,6 +32,7 @@ body{
   50%{ transform: scale(1.3); }
 }
 
+/* --------------------------- */
 /* CABEZA */
 .pieza{
   font-size:60px;
@@ -46,6 +41,7 @@ body{
   box-shadow:0 0 20px #00ff99;
 }
 
+/* --------------------------- */
 /* BOTÓN PRINCIPAL */
 .btn-enter{
   font-size:30px;
@@ -63,6 +59,7 @@ body{
   50%{ transform:scale(1.1); }
 }
 
+/* --------------------------- */
 /* CAMARA */
 video{
   width:90%;
@@ -72,6 +69,7 @@ video{
   border-radius:20px;
 }
 
+/* --------------------------- */
 /* TABLERO */
 #board{
   display:grid;
@@ -84,6 +82,7 @@ video{
   overflow:hidden;
 }
 
+/* --------------------------- */
 /* PIEZAS */
 .tile{
   aspect-ratio:1;
@@ -97,6 +96,7 @@ video{
   font-size:30px;
 }
 
+/* --------------------------- */
 /* TIMER */
 #timer{
   font-size:30px;
@@ -107,6 +107,7 @@ video{
   animation:pulse 0.5s infinite;
 }
 
+/* --------------------------- */
 /* MENSAJE */
 #overlayMessage{
   position:absolute;
@@ -126,6 +127,7 @@ video{
   text-shadow:0 0 20px red;
 }
 
+/* --------------------------- */
 /* BOTONES */
 .controls{
   margin-top:15px;
@@ -149,6 +151,7 @@ video{
   box-shadow:0 2px 8px rgba(0,255,153,0.6);
 }
 
+/* --------------------------- */
 /* TABLA */
 #historyTable{
   margin-top:20px;
@@ -176,15 +179,17 @@ td{
   box-shadow:0 0 5px #00ff99;
 }
 
-/* ------------------------------- */
+/* --------------------------- */
 /* FONDO MENU PRINCIPAL (retro/arcade) */
 #homeScreen{
   background: url("assets/fondo.jpg") no-repeat center center;
   background-size: cover;
   height: 100vh;
   position: relative;
+  z-index:1; /* Siempre encima del canvas */
 }
 
+/* Oscurecer para que el texto se vea mejor */
 #homeScreen::before{
   content:"";
   position:absolute;
@@ -199,4 +204,15 @@ td{
 #homeScreen *{
   position:relative;
   z-index:1;
-  }
+}
+
+/* --------------------------- */
+/* CANVAS DE ESTRELLAS PARA JUEGO/CAMARA */
+#spaceCanvasGame{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
