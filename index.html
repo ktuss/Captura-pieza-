@@ -11,9 +11,6 @@
 
 <body>
 
-<!-- FONDO ESTRELLAS -->
-<canvas id="spaceCanvas"></canvas>
-
 <!-- INTRO -->
 <div id="introAnimation">
   <div class="puzzle-intro">
@@ -34,12 +31,15 @@
 
 <!-- CAMARA -->
 <div id="cameraScreen" class="screen">
+  <canvas id="spaceCanvas"></canvas> <!-- SOLO aparece en cámara/juego -->
   <video id="video" autoplay playsinline></video>
   <button class="btn-enter" onclick="takePhoto()">TOMAR FOTO</button>
 </div>
 
 <!-- JUEGO -->
 <div id="gameScreen" class="screen">
+
+  <canvas id="spaceCanvasGame"></canvas> <!-- Fondo estrellas solo aquí -->
 
   <div id="board"></div>
 
@@ -60,43 +60,50 @@
 
 <script src="script.js"></script>
 
-<!-- SCRIPT FONDO ESTRELLAS -->
+<!-- SCRIPT FONDO ESTRELLAS SOLO PARA JUEGO -->
 <script>
-const canvas = document.getElementById('spaceCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
+function initStars(canvasId){
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  let stars = [];
+  for(let i=0;i<150;i++){
+    stars.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.5+0.5,
+      d: Math.random()*0.5
+    });
+  }
+
+  function animate(){
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = '#fff';
+    stars.forEach(s=>{
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+      s.y += s.d;
+      if(s.y>canvas.height) s.y=0;
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// Llama la animación de estrellas solo en pantalla de juego/cámara
+document.getElementById('gameScreen').addEventListener('mouseenter', ()=>{
+  initStars('spaceCanvasGame');
 });
-
-let stars = [];
-for(let i=0;i<250;i++){
-  stars.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    r: Math.random()*1.5 + 0.5,
-    d: Math.random()*0.5
-  });
-}
-
-function animateStars(){
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#fff';
-  stars.forEach(s=>{
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.fill();
-    s.y += s.d;
-    if(s.y > canvas.height) s.y = 0;
-  });
-  requestAnimationFrame(animateStars);
-}
-animateStars();
 </script>
 
 </body>
-      </html>
+</html>
