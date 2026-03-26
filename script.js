@@ -65,9 +65,9 @@ function initGame(){
   showRanking();
 }
 
-/* 🔥 MEZCLA CON DIFICULTAD */
+/* 🔥 MEZCLA CON DIFICULTAD REAL */
 function shuffle(){
-  let moves = 80 + (difficulty * 40);
+  let moves = 80 + (difficulty * 60);
 
   for(let i=0;i<moves;i++){
     let r=Math.floor(Math.random()*9);
@@ -99,7 +99,7 @@ function render(){
   });
 }
 
-/* 🔥 MOVER CON VIBRACIÓN */
+/* 🔥 MOVER CON VIBRACIÓN PRO */
 function move(i,check=true){
   let r=Math.floor(i/3), c=i%3;
   let er=Math.floor(emptyIndex/3), ec=emptyIndex%3;
@@ -112,7 +112,7 @@ function move(i,check=true){
     [tiles[i],tiles[emptyIndex]]=[tiles[emptyIndex],tiles[i]];
     emptyIndex=i;
 
-    // ⚡ vibración tipo juego
+    // ⚡ vibración juego
     if(navigator.vibrate){
       navigator.vibrate([20,10,20]);
     }
@@ -132,6 +132,11 @@ function checkWin(){
     overlay.innerText="GANASTE";
     overlay.className="win";
 
+    // ⚡ vibración victoria
+    if(navigator.vibrate){
+      navigator.vibrate([100,50,100,50,200]);
+    }
+
     scores.push(timeLeft);
     scores.sort((a,b)=>b-a);
     scores=scores.slice(0,5);
@@ -144,7 +149,7 @@ function checkWin(){
   }
 }
 
-/* ⚡ RANKING CON RAYO */
+/* ⚡ RANKING */
 function showRanking(){
   let div=document.getElementById("ranking");
 
@@ -160,10 +165,12 @@ function showRanking(){
   `;
 }
 
-/* TIMER */
+/* 🔥 TIMER CON DIFICULTAD */
 function startTimer(){
   clearInterval(interval);
-  timeLeft=100;
+
+  timeLeft = 100 - (difficulty * 5);
+  if(timeLeft < 30) timeLeft = 30;
 
   interval=setInterval(()=>{
     timeLeft--;
