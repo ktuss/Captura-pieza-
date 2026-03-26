@@ -1,24 +1,28 @@
 body{
   margin:0;
-  background:white;
-  color:#00cfff;
+  background:black;
+  color:#00ff99;
   font-family:'Bangers', cursive;
   text-align:center;
 }
+
+/* PANTALLAS */
+.screen{ display:none; }
+.active{ display:block; }
 
 /* INTRO */
 #introAnimation{
   position:fixed;
   width:100%;
   height:100%;
-  background:white;
+  background:black;
   display:flex;
   justify-content:center;
   align-items:center;
   z-index:999;
 }
 
-/* PIEZAS ANIMACIÓN */
+/* PIEZAS INTRO */
 .puzzle-intro{
   position:relative;
   width:150px;
@@ -28,27 +32,22 @@ body{
 .piece{
   width:60px;
   height:60px;
-  background:white;
-  border:3px solid #00cfff;
-  border-radius:12px;
+  border:3px solid #00ff99;
   position:absolute;
-  box-shadow:0 0 15px #00cfff;
+  box-shadow:0 0 15px #00ff99;
 }
 
-/* posiciones */
 .p1{ top:0; left:0; animation:move1 1s forwards; }
 .p2{ top:0; right:0; animation:move2 1s forwards; }
 .p3{ bottom:0; left:0; animation:move3 1s forwards; }
 .p4{ bottom:0; right:0; animation:move4 1s forwards; }
 
-/* pieza final */
 .p5{
   top:-80px;
   left:45px;
   animation:drop 1s 1s forwards;
 }
 
-/* animaciones */
 @keyframes move1{ to{ transform:translate(20px,20px);} }
 @keyframes move2{ to{ transform:translate(-20px,20px);} }
 @keyframes move3{ to{ transform:translate(20px,-20px);} }
@@ -57,67 +56,58 @@ body{
 @keyframes drop{
   to{
     transform:translateY(80px);
-    box-shadow:0 0 30px #00cfff;
+    box-shadow:0 0 30px #00ff99;
   }
 }
 
-/* PANTALLAS */
-.screen{ display:none; }
-.active{ display:block; }
-
 /* LOGO */
 .logo{
-  margin-top:60px;
-  font-size:42px;
-  color:#00cfff;
-  text-shadow:0 0 15px #00cfff;
+  font-size:60px;
+  text-shadow:0 0 20px #00ff99;
 }
 
-.pieza{
-  display:inline-block;
-  font-size:32px;
+.pieza-box{
+  border:3px solid #00ff99;
   padding:15px;
-  border:3px solid #00cfff;
-  border-radius:12px;
-  box-shadow:0 0 15px #00cfff;
+  display:inline-block;
+  box-shadow:0 0 20px #00ff99;
 }
 
-/* BOTONES */
+/* BOTÓN */
 .btn-enter{
-  margin-top:40px;
+  margin-top:30px;
+  font-size:28px;
   padding:15px 30px;
-  font-size:22px;
-  border:2px solid #00cfff;
-  border-radius:15px;
-  background:white;
-  color:#00cfff;
-  box-shadow:0 0 15px #00cfff;
+  border:2px solid #00ff99;
+  background:black;
+  color:#00ff99;
+  font-family:'Bangers', cursive;
+  box-shadow:0 0 20px #00ff99;
   animation:pulse 1.5s infinite;
 }
 
-/* VIDEO */
-video{
-  width:90%;
-  border-radius:15px;
-  margin-top:20px;
-  box-shadow:0 0 20px #00cfff;
+@keyframes pulse{
+  50%{ transform:scale(1.1); }
 }
 
 /* TABLERO */
 #board{
-  width:90vw;
-  max-width:320px;
+  width:300px;
   margin:auto;
   display:grid;
-  gap:4px;
-  border-radius:15px;
-  box-shadow:0 0 20px #00cfff;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
 }
 
 /* PIEZAS */
 .tile{
-  border-radius:8px;
-  box-shadow:0 0 10px #00cfff;
+  height:90px;
+  border:2px solid #00ff99;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  box-shadow:0 0 10px #00ff99;
   transition:0.2s;
 }
 
@@ -125,36 +115,32 @@ video{
   transform:scale(0.9);
 }
 
-/* MENSAJES */
-.win{
-  color:#00cfff;
-  text-shadow:0 0 15px #00cfff, 0 0 30px #00cfff;
+/* TIMER */
+#timer{
+  font-size:30px;
+  margin-top:20px;
 }
 
-.lose{
-  color:red;
+/* GANASTE */
+.win{
+  color:yellow;
+  font-size:40px;
+  text-shadow:0 0 20px yellow;
+  animation:flash 0.5s infinite;
+}
+
+@keyframes flash{
+  50%{ opacity:0.3; }
 }
 
 /* RANKING */
+#ranking{
+  margin-top:20px;
+}
+
 .time-box{
-  background:white;
-  margin:6px;
-  padding:10px;
-  border-radius:12px;
-  border:2px solid #00cfff;
-  box-shadow:0 0 10px #00cfff;
+  border:2px solid #00ff99;
+  margin:5px;
+  padding:8px;
+  box-shadow:0 0 10px #00ff99;
 }
-
-/* RAYO */
-.ranking-title{
-  animation:spin3D 3s infinite linear;
-}
-
-@keyframes spin3D{
-  0%{ transform:rotateY(0deg);}
-  100%{ transform:rotateY(360deg);}
-}
-
-@keyframes pulse{
-  50%{ transform:scale(1.1);}
-  }
